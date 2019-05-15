@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.less';
+import axios from 'axios';
+import PokemonList from './PokemonList/PokemonList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pokemons: [],
+    };
+  }
+
+  componentDidMount() {
+    axios.get(`https://pokeapi.co/api/v2/pokemon`)
+      .then(response => {
+        
+        // create an array of pokemon only with relevant data
+        const newPokemons = response.data.results.map(p => {
+          return {
+            name: p.name,
+            url: p.url
+          };
+        });
+
+        // store the new state object in the component's state
+        this.setState({pokemons: newPokemons});
+
+        console.log("Success!");
+      })
+      .catch(error => console.log(error));
+    
+  }
+  
+  render (){
+    console.log('In Render');
+    console.log(this.state.pokemons);
+    return (
+      <div className="App">
+        <PokemonList pokemons = {this.state.pokemons}/>
+      </div>
+    );
+  }
 }
 
 export default App;
