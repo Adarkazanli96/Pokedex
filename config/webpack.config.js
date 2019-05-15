@@ -38,7 +38,7 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\.css$/;
+const cssRegex = /\.(?:le|c)ss$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -80,12 +80,12 @@ module.exports = function(webpackEnv) {
         loader: require.resolve('css-loader'),
         options: cssOptions,
       },
-      /* {
+      {
         loader: require.resolve('less-loader'),
         options: {
           importLoaders: 1,
         },
-      }, */
+      },
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in

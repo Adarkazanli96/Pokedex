@@ -2,7 +2,7 @@
   "name": "pokedex-react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://condescending-stallman-db8228.netlify.com/",
+  "homepage": "https://adarkazanli-pokedex.netlify.com/",
   "dependencies": {
     "@babel/core": "7.4.3",
     "@babel/runtime": "^7.4.4",
