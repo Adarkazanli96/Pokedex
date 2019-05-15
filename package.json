@@ -2,7 +2,7 @@
   "name": "pokedex-react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://adarkazanli96.github.io/Pokedex",
+  "homepage": "https://condescending-stallman-db8228.netlify.com/",
   "dependencies": {
     "@babel/core": "7.4.3",
     "@babel/runtime": "^7.4.4",
@@ -17,6 +17,7 @@
     "babel-preset-react-app": "^9.0.0",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "core-js": "^3.0.1",
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
@@ -30,7 +31,6 @@
     "eslint-plugin-react-hooks": "^1.5.0",
     "file-loader": "3.0.1",
     "fs-extra": "7.0.1",
-    "gh-pages": "^2.0.1",
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
@@ -41,6 +41,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "0.5.0",
+    "netlify-cli": "^2.11.18",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -52,7 +53,9 @@
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -67,8 +70,6 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -136,5 +137,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
