@@ -24,7 +24,7 @@ class App extends React.Component{
           };
         });
 
-        // store the new state object in the component's state
+        // set the state of the pokemon array to the data retrieved
         this.setState({pokemons: newPokemons});
 
         console.log("Success!");
