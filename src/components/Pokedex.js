@@ -1,6 +1,7 @@
 import React from 'react';
-import { getPokemons } from '../api/PokedexAPI'
-import PokemonList from './PokemonList/PokemonList';
+import { getAllPokemon } from '../api/PokedexAPI'
+import PokemonList from './PokemonList';
+import './Pokedex.less';
 
 class Pokedex extends React.Component{
   constructor(props) {
@@ -12,7 +13,7 @@ class Pokedex extends React.Component{
   }
 
   componentDidMount() {
-    getPokemons()
+    getAllPokemon()
     .then(response => {
     
         // create an array of pokemon only with relevant data
@@ -25,8 +26,7 @@ class Pokedex extends React.Component{
 
         // set the state of the pokemon array to the data retrieved
         this.setState({pokemons: newPokemons});
-
-        console.log("Success!");
+        
       })
       .catch(error => console.log(error));
     
@@ -34,7 +34,7 @@ class Pokedex extends React.Component{
   
   render (){
     return (
-      <div>
+      <div className = "gallery">
         <PokemonList pokemons = {this.state.pokemons}/>
       </div>
     );

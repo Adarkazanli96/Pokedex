@@ -1,9 +1,9 @@
 import React from 'react'
-import Pokemon from './Pokemon/Pokemon'
+import PokemonCell from './PokemonCell'
 
 let PokemonList = props =>{
     return props.pokemons.map((pokemon, index) =>{
-        return <Pokemon
+        return <PokemonCell
                 name = {pokemon.name}
                 url = {pokemon.url}
                 />
