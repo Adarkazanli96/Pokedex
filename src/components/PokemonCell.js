@@ -1,8 +1,8 @@
 import React from 'react';
 
 let PokemonCell = props =>{
-    
-    let pokeID = props.id + 1;
+    let res = props.url.split("/")
+    let pokeID = res[6];
 
     return(
     <div>

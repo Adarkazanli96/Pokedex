@@ -11,7 +11,8 @@ class Pokedex extends React.Component{
 
     this.state = {
       pokemonlist: [],
-      selectedPokemonID: 0,
+      offset: 0,
+      selectedPokemonID: 1, // pokemon we want selected when first rendered
     };
 
     this.setSelectedPokemonHandler = this.setSelectedPokemonHandler.bind(this);
@@ -23,7 +24,7 @@ class Pokedex extends React.Component{
 
   componentDidMount () {
   
-    PokedexAPI.getAllPokemon()
+    PokedexAPI.getListOfPokemon(0)
     .then(response => {
     
         // create an array of pokemon only with relevant data
@@ -43,6 +44,7 @@ class Pokedex extends React.Component{
   }
   
   render (){
+    console.log(this.state.pokemonlist);
     console.log(this.state.selectedPokemonID);
     return (
       <div className = "pokedex">

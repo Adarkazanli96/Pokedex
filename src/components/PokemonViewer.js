@@ -8,6 +8,7 @@ class PokemonViewer extends React.Component{
 
     this.state = {
       selectedPokemonID: 0,
+      selectedPokemonName: "",
       selectedPokemonImageURL: ""
     };
   }
@@ -16,7 +17,11 @@ class PokemonViewer extends React.Component{
     PokedexAPI.getPokemon(newProps.selectedPokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
-        this.setState({selectedPokemonImageURL: imageURL});   
+        const name = response.data.name;
+        this.setState({
+          selectedPokemonImageURL: imageURL,
+          selectedPokemonName: name
+        });   
       })
       .catch(error => console.log(error));
   }
@@ -32,16 +37,24 @@ class PokemonViewer extends React.Component{
     PokedexAPI.getPokemon(1)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
-        this.setState({selectedPokemonImageURL: imageURL});   
+        const name = response.data.name;
+        this.setState({
+          selectedPokemonImageURL: imageURL,
+          selectedPokemonName: name
+      }); 
       })
       .catch(error => console.log(error));
   }
   
   render (){
     return (
-      <img className = "selected-pokemon"
+      <div>
+        <img className = "selected-pokemon"
         src = {this.state.selectedPokemonImageURL}
         alt = "new" />
+        {this.state.selectedPokemonName}
+      </div>
+      
     );
   }
 }

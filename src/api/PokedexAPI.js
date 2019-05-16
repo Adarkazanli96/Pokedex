@@ -2,8 +2,8 @@ import axios from 'axios'
 
 //axios.defaults.baseURL = 'https://pokeapi.co/api/v2/pokemon';
 
-function getAllPokemon(){
-    return axios.get('https://pokeapi.co/api/v2/pokemon');
+function getListOfPokemon(offset){
+    return axios.get("https://pokeapi.co/api/v2/pokemon/?limit=8&offset=" + offset);
 }
 
 function getPokemon(id){
@@ -12,6 +12,6 @@ function getPokemon(id){
 
 
 export default {
-    getAllPokemon,
+    getListOfPokemon,
     getPokemon
 }
