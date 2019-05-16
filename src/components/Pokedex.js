@@ -2,6 +2,7 @@ import React from 'react';
 import { PokedexAPI } from '../api'
 import PokemonList from './PokemonList';
 import PokemonViewer from './PokemonViewer';
+import Controls from './Controls'
 //import {Arrow, Textbox} from '../shared'
 import './Pokedex.less';
 
@@ -48,11 +49,17 @@ class Pokedex extends React.Component{
     console.log(this.state.selectedPokemonID);
     return (
       <div className = "pokedex">
-        <span className = "pokelist">
-          <PokemonList
+        <span className = "left">
+          <span className = "pokelist">
+            <PokemonList
             pokemonlist = {this.state.pokemonlist}
             onClick = {this.setSelectedPokemonHandler}/>
+          </span>
+          <span>
+            <Controls/>
+          </span>
         </span>
+        
         <span className = "pokemonview">
           <PokemonViewer
             selectedPokemonID = {this.state.selectedPokemonID}/>

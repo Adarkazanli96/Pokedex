@@ -1,0 +1,53 @@
+.pokedex-controls{
+    position: relative;
+    background-color: red; 
+}
+
+.triangle {
+  cursor: pointer;
+  //margin: 0 50px;
+  position: relative;
+  background-color: orange;
+  top: 12px;
+  left: -20px;
+}
+.triangle:before,
+.triangle:after {
+	content: '';
+	position: absolute;
+	background-color: inherit;
+}
+.triangle,
+.triangle:before,
+.triangle:after {
+	width:  25px;
+	height: 25px;
+	border-top-right-radius: 30%;
+}
+
+.triangle {
+	transform: rotate(-180deg) skewX(-30deg) scale(1,.866) translate(-250%, 70%);
+}
+.triangle:before {
+	transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.triangle:after {
+	transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+// specifically for the down triangle
+.triangle.down {
+  top: 40px;
+  left: 90px;
+	transform: rotate(-120deg) skewX(-30deg) scale(1,.866) translate(160%,150%);
+}
+.triangle.down:before {
+	transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.triangle.down:after {
+	transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+.triangle:hover {
+	background-color: #363636;
+}

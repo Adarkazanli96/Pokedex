@@ -49,10 +49,11 @@ class PokemonViewer extends React.Component{
   render (){
     return (
       <div>
-        <img className = "selected-pokemon"
+        <p className = "name">{this.state.selectedPokemonName.toUpperCase()}</p>
+        <img className = "img"
         src = {this.state.selectedPokemonImageURL}
         alt = "new" />
-        {this.state.selectedPokemonName}
+        
       </div>
       
     );
