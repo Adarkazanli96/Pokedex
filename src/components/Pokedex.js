@@ -11,8 +11,7 @@ class Pokedex extends React.Component{
 
     this.state = {
       pokemonlist: [],
-      selectedPokemonID: 1,
-      number: 1
+      selectedPokemonID: 0,
     };
 
     this.setSelectedPokemonHandler = this.setSelectedPokemonHandler.bind(this);
@@ -52,7 +51,7 @@ class Pokedex extends React.Component{
             pokemonlist = {this.state.pokemonlist}
             onClick = {this.setSelectedPokemonHandler}/>
         </span>
-        <span className = "viewport">
+        <span className = "pokemonview">
           <PokemonViewer
             selectedPokemonID = {this.state.selectedPokemonID}/>
         </span>

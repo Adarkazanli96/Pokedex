@@ -1,16 +1,15 @@
 import React from 'react';
 
 let PokemonCell = props =>{
-    // get the pokemons number
-    let res = props.url.split("/");
-    let number = res[6];
+    
+    let pokeID = props.id + 1;
 
-    return(<div onClick={() => props.onClick(props.id)}>
+    return(
+    <div>
         <img
-            
-            src = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + number + ".png"}
+            onClick={() => props.onClick(pokeID)}
+            src = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeID + ".png"}
             alt = "new"/>
-        {props.name}
     </div>
     );
 

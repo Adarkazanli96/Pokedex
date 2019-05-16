@@ -7,13 +7,13 @@ class PokemonViewer extends React.Component{
     super(props);
 
     this.state = {
-      selectedPokemonID: 1,
+      selectedPokemonID: 0,
       selectedPokemonImageURL: ""
     };
   }
 
-  componentWillUpdate(nextProps, nextState){
-    PokedexAPI.getPokemon(nextProps.selectedPokemonID)
+  componentWillUpdate(newProps, nextState){
+    PokedexAPI.getPokemon(newProps.selectedPokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
         this.setState({selectedPokemonImageURL: imageURL});   
@@ -27,8 +27,9 @@ class PokemonViewer extends React.Component{
     }
   }
 
+  // grab the first pokemon and set the state of all the properties
   componentDidMount () {
-    PokedexAPI.getPokemon(this.state.selectedPokemonID)
+    PokedexAPI.getPokemon(1)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
         this.setState({selectedPokemonImageURL: imageURL});   
