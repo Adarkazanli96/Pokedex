@@ -1,6 +1,8 @@
 import React from 'react';
-import { getAllPokemon } from '../api/PokedexAPI'
+import { PokedexAPI } from '../api'
 import PokemonList from './PokemonList';
+import PokemonViewer from './PokemonViewer';
+//import {Arrow, Textbox} from '../shared'
 import './Pokedex.less';
 
 class Pokedex extends React.Component{
@@ -8,16 +10,25 @@ class Pokedex extends React.Component{
     super(props);
 
     this.state = {
-      pokemons: [],
+      pokemonlist: [],
+      selectedPokemonID: 1,
+      number: 1
     };
+
+    this.setSelectedPokemonHandler = this.setSelectedPokemonHandler.bind(this);
   }
 
-  componentDidMount() {
-    getAllPokemon()
+   setSelectedPokemonHandler (value) {
+      this.setState({selectedPokemonID: value});
+  }
+
+  componentDidMount () {
+  
+    PokedexAPI.getAllPokemon()
     .then(response => {
     
         // create an array of pokemon only with relevant data
-        const newPokemons = response.data.results.map(p => {
+        const newPokemonlist = response.data.results.map(p => {
           return {
             name: p.name,
             url: p.url
@@ -25,7 +36,7 @@ class Pokedex extends React.Component{
         });
 
         // set the state of the pokemon array to the data retrieved
-        this.setState({pokemons: newPokemons});
+        this.setState({pokemonlist: newPokemonlist});
         
       })
       .catch(error => console.log(error));
@@ -33,9 +44,19 @@ class Pokedex extends React.Component{
   }
   
   render (){
+    console.log(this.state.selectedPokemonID);
     return (
-      <div className = "gallery">
-        <PokemonList pokemons = {this.state.pokemons}/>
+      <div className = "pokedex">
+        <span className = "pokelist">
+          <PokemonList
+            pokemonlist = {this.state.pokemonlist}
+            onClick = {this.setSelectedPokemonHandler}/>
+        </span>
+        <span className = "viewport">
+          <PokemonViewer
+            selectedPokemonID = {this.state.selectedPokemonID}/>
+        </span>
+        
       </div>
     );
   }
