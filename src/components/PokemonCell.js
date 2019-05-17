@@ -7,7 +7,7 @@ let PokemonCell = props =>{
 
     return(
     <div className = "cell">
-        <img
+        <img className = "poke-img"
             onClick={() => props.onClick(pokeID)}
             src = {"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokeID + ".png"}
             alt = "new"/>
