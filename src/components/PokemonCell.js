@@ -1,5 +1,6 @@
 import React from 'react';
 import './PokemonCell.less'
+
 let PokemonCell = props =>{
     let res = props.url.split("/")
     let pokeID = res[6];

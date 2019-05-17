@@ -43,3 +43,34 @@
     background-color: #FEF9DC;
     
 }
+
+
+.fade-out{
+    display: grid;
+    grid-template-columns: repeat(2, 95px);
+    //float: left;
+    //border: 3px solid red;
+    width: 190px;
+    height: 400px;
+    background-color: white;
+
+    opacity: 0;
+    transition: opacity .20s ease-in-out;
+    -moz-transition: opacity .20s ease-in-out;
+    -webkit-transition: opacity .20s ease-in-out;
+}
+
+.fade-in{
+    display: grid;
+    grid-template-columns: repeat(2, 95px);
+    //float: left;
+    //border: 3px solid red;
+    width: 190px;
+    height: 400px;
+    background-color: white;
+    
+    opacity: 1;
+    transition: opacity .20s ease-in-out;
+    -moz-transition: opacity .20s ease-in-out;
+    -webkit-transition: opacity .20s ease-in-out;
+}
