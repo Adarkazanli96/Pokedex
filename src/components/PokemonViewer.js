@@ -13,9 +13,17 @@ class PokemonViewer extends React.Component{
     };
   }
 
+  // called when setState is called
   componentWillUpdate(newProps, nextState){
-    PokedexAPI.getPokemon(newProps.selectedPokemonID)
-    .then(response => {
+    console.log("component will update in pokemon viewer")
+  }
+
+  componentWillReceiveProps (newProps){
+    console.log("component will receive props in pokemon viewer")
+    if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
+      this.setState({selectedPokemonID : newProps.selectedPokemonID})
+      PokedexAPI.getPokemon(newProps.selectedPokemonID)
+      .then(response => {
         const imageURL = response.data.sprites.front_default;
         const name = response.data.name;
         this.setState({
@@ -24,17 +32,12 @@ class PokemonViewer extends React.Component{
         });   
       })
       .catch(error => console.log(error));
-  }
-
-  componentWillReceiveProps (newProps){
-    if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
-      this.setState({selectedPokemonID : newProps.selectedPokemonID})
     }
   }
 
   // grab the first pokemon and set the state of all the properties
   componentDidMount () {
-    PokedexAPI.getPokemon(1)
+    PokedexAPI.getPokemon(this.props.selectedPokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
         const name = response.data.name;
@@ -47,6 +50,7 @@ class PokemonViewer extends React.Component{
   }
   
   render (){
+    
     return (
       <div>
         <p className = "name">{this.state.selectedPokemonName.toUpperCase()}</p>

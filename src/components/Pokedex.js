@@ -3,35 +3,32 @@ import { PokedexAPI } from '../api'
 import PokemonList from './PokemonList';
 import PokemonViewer from './PokemonViewer';
 import Controls from './Controls'
-//import {Arrow, Textbox} from '../shared'
-//import FadeIn from 'react-fade-in';
+
 import './Pokedex.less';
-import Loader from './Loader'
 
 class Pokedex extends React.Component{
   constructor(props) {
+    console.log('in constructor');
     super(props);
 
     this.state = {
       pokemonlist: [],
       offset: 0,
-      selectedPokemonID: 1, // pokemon we want selected when first rendered
-      isLoading : false
+      selectedPokemonID: 1,
     };
 
-    this.setSelectedPokemonHandler = this.setSelectedPokemonHandler.bind(this);
+    this.updateSelectedPokemonHandler = this.updateSelectedPokemonHandler.bind(this);
     this.setPokemonListDisplayedHandler = this.setPokemonListDisplayedHandler.bind(this);
   }
 
-   setSelectedPokemonHandler (value) {
+   updateSelectedPokemonHandler (value) {
       this.setState({selectedPokemonID: value});
   }
 
   // add or subtract from the value of the offset
   async setPokemonListDisplayedHandler (value) {
     if((this.state.offset + value) >= 0){
-      await this.setState({offset: this.state.offset + value,
-      isLoading: true});
+      await this.setState({offset: this.state.offset + value});
       this.updatePokemonList();
     }
   }
@@ -51,8 +48,7 @@ class Pokedex extends React.Component{
 
         // set the state of the pokemon array to the data retrieved
         this.setState({
-          pokemonlist: newPokemonlist,
-          isLoading: false
+          pokemonlist: newPokemonlist
         });
         
       })
@@ -62,6 +58,7 @@ class Pokedex extends React.Component{
   
 
   componentDidMount () {
+    console.log('in component did mount')
   
     PokedexAPI.getListOfPokemon(0)
     .then(response => {
@@ -81,49 +78,36 @@ class Pokedex extends React.Component{
       .catch(error => console.log(error));
     
   }
+
+  componentDidUpdate(){
+    console.log('component did update')
+  }
   
   render (){
-    console.log(this.state.pokemonlist);
-    console.log(this.state.selectedPokemonID);
-    console.log(this.state.offset);
+    console.log('in render')
 
-    /* let show = <Loader/>;
-
-    if(!this.state.isLoading){
-      show = <PokemonList
-      pokemonlist = {this.state.pokemonlist}
-      onClick = {this.setSelectedPokemonHandler}
-      />
-    } */
-    
     return (
-      <div>
-        <div className = "pokedex-header">
-          <div className = "bluedot"></div>
-        </div>
-        <div className = "pokedex">
-        <span className = "left">
-          <span className = "pokelist">
-
-            <PokemonList
+      <div className = "pokedex">
+        <div className = "pokedex-header"><div className = "bluedot"></div></div>
+        <div className = "pokedex-body">
+          <span className = "left-side">
+            <span className = "pokelist">
+              <PokemonList
               pokemonlist = {this.state.pokemonlist}
-              onClick = {this.setSelectedPokemonHandler}
-            />
-
+              onClick = {this.updateSelectedPokemonHandler}
+              />
+            </span>
+            <span>
+              <Controls
+              onClick = {this.setPokemonListDisplayedHandler}/>
+            </span>
           </span>
-          <span>
-            <Controls
-            onClick = {this.setPokemonListDisplayedHandler}/>
-          </span>
-        </span>
-        
-        <span className = "pokemonview">
-          <PokemonViewer
+          <span className = "right-side">
+            <PokemonViewer
             selectedPokemonID = {this.state.selectedPokemonID}/>
-        </span>
-        
-      </div>
+          </span>
         </div>
+      </div>
         
     );
   }
