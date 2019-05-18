@@ -97,14 +97,18 @@ class Pokedex extends React.Component{
     } */
     
     return (
-      <div className = "pokedex">
+      <div>
+        <div className = "pokedex-header">
+          <div className = "bluedot"></div>
+        </div>
+        <div className = "pokedex">
         <span className = "left">
           <span className = "pokelist">
 
             <PokemonList
-      pokemonlist = {this.state.pokemonlist}
-      onClick = {this.setSelectedPokemonHandler}
-      />
+              pokemonlist = {this.state.pokemonlist}
+              onClick = {this.setSelectedPokemonHandler}
+            />
 
           </span>
           <span>
@@ -119,6 +123,8 @@ class Pokedex extends React.Component{
         </span>
         
       </div>
+        </div>
+        
     );
   }
 }
