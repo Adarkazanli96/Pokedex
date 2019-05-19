@@ -13,10 +13,8 @@ class Pokedex extends React.Component{
 
     this.state = {
       allPokemon: [],
-      pokemonlist: [],
-      start: 0,
-      end: 8,
       selectedPokemonID: 1,
+      translate: 0,
     };
 
     this.updateSelectedPokemonHandler = this.updateSelectedPokemonHandler.bind(this);
@@ -28,17 +26,13 @@ class Pokedex extends React.Component{
   }
 
   // add or subtract from the value of the offset
-  async updatePokemonListDisplayedHandler (value) {
-    if((this.state.end + value) >= 8 && (this.state.end + value) < 160){
-        await this.setState({
-          start: this.state.start+value,
-          end: this.state.end+value
-        })
-        
-        const pokemonlist = this.state.allPokemon.slice(this.state.start, this.state.end);
-        this.setState({pokemonlist : pokemonlist});
-    }
+  updatePokemonListDisplayedHandler (value) {
+    if(this.state.translate + value <= 0 && this.state.translate + value >= -5760){
+      this.setState({
+       translate: this.state.translate + value
+     })
   }
+}
   
 
   componentDidMount () {
@@ -55,11 +49,7 @@ class Pokedex extends React.Component{
           };
         });
 
-        const pokemonlist = allPokemon.slice(0,8);
-
-        // set the state of the pokemon array to the data retrieved
-        this.setState({allPokemon: allPokemon,
-        pokemonlist: pokemonlist});
+        this.setState({allPokemon: allPokemon});
         
       })
       .catch(error => console.log(error));
@@ -81,9 +71,10 @@ class Pokedex extends React.Component{
         </div>
         <div className = "pokedex-body">
           <span className = "left-side">
-            <span className = "pokelist">
+            <span className = "pokelist-container">
               <PokemonList
-              pokemonlist = {this.state.pokemonlist}
+              translate={this.state.translate}
+              pokemonlist = {this.state.allPokemon}
               onClick = {this.updateSelectedPokemonHandler}
               />
             </span>
