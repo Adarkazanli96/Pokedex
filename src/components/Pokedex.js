@@ -12,13 +12,15 @@ class Pokedex extends React.Component{
     super(props);
 
     this.state = {
+      allPokemon: [],
       pokemonlist: [],
-      offset: 0,
+      start: 0,
+      end: 8,
       selectedPokemonID: 1,
     };
 
     this.updateSelectedPokemonHandler = this.updateSelectedPokemonHandler.bind(this);
-    this.setPokemonListDisplayedHandler = this.setPokemonListDisplayedHandler.bind(this);
+    this.updatePokemonListDisplayedHandler = this.updatePokemonListDisplayedHandler.bind(this);
   }
 
    updateSelectedPokemonHandler (value) {
@@ -26,53 +28,38 @@ class Pokedex extends React.Component{
   }
 
   // add or subtract from the value of the offset
-  async setPokemonListDisplayedHandler (value) {
-    if((this.state.offset + value) >= 0){
-      await this.setState({offset: this.state.offset + value});
-      this.updatePokemonList();
-    }
-  }
-
-  // method for updating the pokemon list
-  updatePokemonList = () =>{
-    PokedexAPI.getListOfPokemon(this.state.offset)
-    .then(response => {
-    
-        // create an array of pokemon only with relevant data
-        const newPokemonlist = response.data.results.map(p => {
-          return {
-            name: p.name,
-            url: p.url
-          };
-        });
-
-        // set the state of the pokemon array to the data retrieved
-        this.setState({
-          pokemonlist: newPokemonlist
-        });
+  async updatePokemonListDisplayedHandler (value) {
+    if((this.state.end + value) >= 8 && (this.state.end + value) < 160){
+        await this.setState({
+          start: this.state.start+value,
+          end: this.state.end+value
+        })
         
-      })
-      .catch(error => console.log(error));
-    
+        const pokemonlist = this.state.allPokemon.slice(this.state.start, this.state.end);
+        this.setState({pokemonlist : pokemonlist});
+    }
   }
   
 
   componentDidMount () {
     console.log('in component did mount')
   
-    PokedexAPI.getListOfPokemon(0)
+    PokedexAPI.getAllPokemon()
     .then(response => {
     
         // create an array of pokemon only with relevant data
-        const newPokemonlist = response.data.results.map(p => {
+        const allPokemon = response.data.results.map(p => {
           return {
             name: p.name,
             url: p.url
           };
         });
 
+        const pokemonlist = allPokemon.slice(0,8);
+
         // set the state of the pokemon array to the data retrieved
-        this.setState({pokemonlist: newPokemonlist});
+        this.setState({allPokemon: allPokemon,
+        pokemonlist: pokemonlist});
         
       })
       .catch(error => console.log(error));
@@ -88,7 +75,10 @@ class Pokedex extends React.Component{
 
     return (
       <div className = "pokedex">
-        <div className = "pokedex-header"><div className = "bluedot"></div></div>
+        <div className = "pokedex-header">
+          <div className = "bluedot"/>
+          <div className = "mini-dots"><div className = "red dot"/><div className = "yellow dot"/><div className = "green dot"/></div>
+        </div>
         <div className = "pokedex-body">
           <span className = "left-side">
             <span className = "pokelist">
@@ -99,7 +89,7 @@ class Pokedex extends React.Component{
             </span>
             <span>
               <Controls
-              onClick = {this.setPokemonListDisplayedHandler}/>
+              onClick = {this.updatePokemonListDisplayedHandler}/>
             </span>
           </span>
           <span className = "right-side">

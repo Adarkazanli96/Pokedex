@@ -20,8 +20,68 @@
 }
 
 .bluedot{
-
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    background: #eee;
+    position: relative;
+    top: 5px;
+    left: 15px;
 }
+
+.bluedot:before{
+    content: ' ';
+    height: 24px;
+    width: 24px;
+    border-radius: 30px;
+    background: #7db9e8; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #7db9e8 0%, #00a2ff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #7db9e8 0%,#00a2ff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #7db9e8 0%,#00a2ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#00a2ff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    position: absolute;
+    top: 2.6px;
+    left: 2.6px;
+  }
+  
+  .bluedot:after{
+    content: ' ';
+    height: 7px;
+    width: 7px;
+    border-radius: 30px;
+    background: rgb(178, 227, 255);
+    position: absolute;
+    top: 7px;
+    left: 7px;
+  }
+
+  .mini-dots {
+    position: relative;
+    display: flex;
+    left: 50px;
+    bottom: 27px;
+    
+  }
+  .dot{
+    margin: 3px;
+    height: 8px;
+    width: 8px;
+    border-radius: 6px;
+    background: grey;
+    border: 1px solid rgb(177, 52, 52);
+  }
+
+  .red{
+    background: #ee5253;
+  }
+
+  .yellow{
+    background: #feca57;
+  }
+
+  .green{
+    background: #1dd1a1;
+  }
 
 .left-side{
     position: relative;
