@@ -4,6 +4,7 @@ import './PokemonViewer.less';
 
 class PokemonViewer extends React.Component{
   constructor(props) {
+    console.log("child: constructor")
     super(props);
 
     this.state = {
@@ -15,11 +16,11 @@ class PokemonViewer extends React.Component{
 
   // called when setState is called
   componentWillUpdate(newProps, nextState){
-    console.log("component will update in pokemon viewer")
+    console.log("child: component will update")
   }
 
   componentWillReceiveProps (newProps){
-    console.log("component will receive props in pokemon viewer")
+    console.log("child: component will receive props")
     if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
       this.setState({selectedPokemonID : newProps.selectedPokemonID})
       PokedexAPI.getPokemon(newProps.selectedPokemonID)
@@ -37,6 +38,7 @@ class PokemonViewer extends React.Component{
 
   // grab the first pokemon and set the state of all the properties
   componentDidMount () {
+    console.log("child: component did mount")
     PokedexAPI.getPokemon(this.props.selectedPokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
@@ -50,14 +52,13 @@ class PokemonViewer extends React.Component{
   }
   
   render (){
-    
+    console.log("child: in render")
     return (
-      <div>
+      <div className="selected-pokemon">
         <p className = "name">{this.state.selectedPokemonName.toUpperCase()}</p>
-        <img className = "img"
+        <img className = "poke-img"
         src = {this.state.selectedPokemonImageURL}
         alt = "new" />
-        
       </div>
       
     );

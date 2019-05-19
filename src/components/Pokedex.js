@@ -3,12 +3,11 @@ import { PokedexAPI } from '../api'
 import PokemonList from './PokemonList';
 import PokemonViewer from './PokemonViewer';
 import Controls from './Controls'
-
 import './Pokedex.less';
 
 class Pokedex extends React.Component{
   constructor(props) {
-    console.log('in constructor');
+    console.log('parent: constructor');
     super(props);
 
     this.state = {
@@ -22,7 +21,9 @@ class Pokedex extends React.Component{
   }
 
    updateSelectedPokemonHandler (value) {
-      this.setState({selectedPokemonID: value});
+    this.setState({
+        selectedPokemonID: value,
+      });
   }
 
   // add or subtract from the value of the offset
@@ -36,7 +37,7 @@ class Pokedex extends React.Component{
   
 
   componentDidMount () {
-    console.log('in component did mount')
+    console.log('parent: in component did mount')
   
     PokedexAPI.getAllPokemon()
     .then(response => {
@@ -57,15 +58,15 @@ class Pokedex extends React.Component{
   }
 
   componentDidUpdate(){
-    console.log('component did update')
+    console.log('parent: component did update')
   }
   
   render (){
-    console.log('in render')
+    console.log('parent: in render')
 
     return (
       <div className = "pokedex">
-        <div className = "pokedex-header">
+        <div className = "header">
           <div className = "bluedot"/>
           <div className = "mini-dots"><div className = "red dot"/><div className = "yellow dot"/><div className = "green dot"/></div>
         </div>
@@ -84,8 +85,7 @@ class Pokedex extends React.Component{
             </span>
           </span>
           <span className = "right-side">
-            <PokemonViewer
-            selectedPokemonID = {this.state.selectedPokemonID}/>
+            <PokemonViewer selectedPokemonID = {this.state.selectedPokemonID}/>
           </span>
         </div>
       </div>
