@@ -16,18 +16,16 @@ class Pokedex extends React.Component{
       translate: 0,
     };
 
-    this.updateSelectedPokemonHandler = this.updateSelectedPokemonHandler.bind(this);
-    this.updatePokemonListDisplayedHandler = this.updatePokemonListDisplayedHandler.bind(this);
   }
 
-   updateSelectedPokemonHandler (value) {
+   updateSelectedPokemonHandler = (value) => {
     this.setState({
         selectedPokemonID: value,
       });
   }
 
   // add or subtract from the value of the offset
-  updatePokemonListDisplayedHandler (value) {
+  updatePokemonListDisplayedHandler = (value) =>{
     if(this.state.translate + value <= 0 && this.state.translate + value >= -5760){
       this.setState({
        translate: this.state.translate + value
