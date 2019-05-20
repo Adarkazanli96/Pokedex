@@ -3,11 +3,13 @@ import './Evolutions.less'
 
 let evolutions = (props) => {
 
-        let evolutions = props.evolutionchain.map((p, index) => {
-            return <p>{p}</p>
-        } )
+    // map images and put them before the evolutionnames below
+        
+    let evolutions = props.evolutionChainNames.map((p, index) => {
+            return <span className = "evolution">{p}</span> 
+    } )
 
-        return(<div className = "evolutions">
+        return(<div className = "evolution-list">
                         {evolutions}
                 </div>);
     

@@ -12,8 +12,8 @@ class PokemonViewer extends React.Component{
       selectedPokemonName: "",
       selectedPokemonImageURL: "",
       selectedPokemonInfo: "",
-      evolutionLink: "",
-      selectedPokemonEvolutionChain: [],
+      selectedPokemonEvolutionChainNames: [],
+      selectedPokemonEvolutionChainImgURLs: [],
       isLoading: false
     };
   }
@@ -25,6 +25,7 @@ class PokemonViewer extends React.Component{
         const name = response.data.name;
         const pokemonInfo = response.data.species.url
         this.setState({
+          selectedPokemonID: PokemonID,
           selectedPokemonImageURL: imageURL,
           selectedPokemonName: name,
           selectedPokemonInfo: pokemonInfo
@@ -34,18 +35,22 @@ class PokemonViewer extends React.Component{
 
       PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
       .then(response => {
-        const evolutions = [];
+        const evolutionNames = [];
+        const evolutionURLs = [];
         
         let evoChain = response.data.chain
         
         do{
-          evolutions.push(evoChain.species.name);
+          evolutionNames.push(evoChain.species.name);
+          evolutionURLs.push(evoChain.species.url);
           evoChain = evoChain['evolves_to'][0];
         }
         while(evoChain && evoChain.hasOwnProperty('evolves_to'))
 
+        // did not get the urls for the evolution chain
         this.setState({
-          selectedPokemonEvolutionChain: evolutions
+          selectedPokemonEvolutionChainNames: evolutionNames,
+          selectedPokemonEvolutionChainImgURLs: evolutionURLs
       })
     })
       .catch(error => console.log(error));
@@ -80,7 +85,8 @@ class PokemonViewer extends React.Component{
       <img className = "poke-img"
       src = {this.state.selectedPokemonImageURL}
       alt = "new" />
-      <Evolutions evolutionchain = {this.state.selectedPokemonEvolutionChain}/>
+      <Evolutions evolutionChainNames = {this.state.selectedPokemonEvolutionChainNames}
+      evolutionChainImgURLs = {this.state.selectedPokemonEvolutionChainImgURLs}/>
     </div>
     
     }
