@@ -5,11 +5,10 @@ import './PokemonViewer.less';
 
 class PokemonViewer extends React.Component{
   constructor(props) {
-    console.log("child: constructor")
     super(props);
 
     this.state = {
-      selectedPokemonID: 0,
+      selectedPokemonID: 1,
       selectedPokemonName: "",
       selectedPokemonImageURL: "",
       selectedPokemonInfo: "",
@@ -19,60 +18,8 @@ class PokemonViewer extends React.Component{
     };
   }
 
-  // called when setState is called
-  componentWillUpdate(newProps, nextState){
-    console.log("child: component will update")
-  }
-
-  async componentWillReceiveProps (newProps){
-    console.log("child: component will receive props")
-    if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
-      await this.setState({isLoading: true})
-
-      
-      console.log(newProps.selectedPokemonID);
-      await this.setState({selectedPokemonID : newProps.selectedPokemonID})
-      
-      await PokedexAPI.getPokemon(newProps.selectedPokemonID)
-      .then(response => {
-        const imageURL = response.data.sprites.front_default;
-        const name = response.data.name;
-        const pokemonInfo = response.data.species.url;
-        this.setState({
-          selectedPokemonImageURL: imageURL,
-          selectedPokemonName: name,
-          selectedPokemonInfo: pokemonInfo
-        });   
-      })
-      .catch(error => console.log(error));
-
-      PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
-      .then(response => {
-        const evolutions = [];
-        
-        let evoChain = response.data.chain
-        
-        do{
-          evolutions.push(evoChain.species.name);
-          evoChain = evoChain['evolves_to'][0];
-        }
-        while(evoChain && evoChain.hasOwnProperty('evolves_to'))
-
-        this.setState({
-          selectedPokemonEvolutionChain: evolutions,
-          isLoading: false
-      })
-    })
-      .catch(error => console.log(error));
-
-    }
-
-  }
-
-  // grab the first pokemon and set the state of all the properties
-  async componentDidMount () {
-    console.log("child: component did mount")
-    await PokedexAPI.getPokemon(this.props.selectedPokemonID)
+  setSelectedPokemonState = async (PokemonID) =>{
+    await PokedexAPI.getPokemon(PokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
         const name = response.data.name;
@@ -102,13 +49,31 @@ class PokemonViewer extends React.Component{
       })
     })
       .catch(error => console.log(error));
+  }
+
+  async componentWillReceiveProps (newProps){
+    console.log("child: component will receive props")
+    if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
+      await this.setState({isLoading: true})
+
+      await this.setSelectedPokemonState(newProps.selectedPokemonID)
+
+      setTimeout(() => {
+        this.setState({isLoading:false});
+      },1000);
 
     }
+
+  }
+
+  componentDidMount () {
+    this.setSelectedPokemonState(this.props.selectedPokemonID)
+  }
   
   render (){
     console.log("child: in render")
     return (<div>
-      {this.state.isLoading? <div>is loading</div> :
+      {this.state.isLoading? <div className = "loader">is loading</div> :
 
     <div className="selected-pokemon">
       <p className = "name">{this.state.selectedPokemonName.toUpperCase()}</p>
