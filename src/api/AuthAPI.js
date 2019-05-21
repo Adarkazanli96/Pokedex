@@ -17,12 +17,23 @@ function signup(){
     password : "foo",
     email: "adarkazanli96@gmail.com"
     })); */
+    let data = {
+      user_id : "anwar",
+      password : "foo",
+      email: "adarkazanli96@gmail.com"
+      }
 
-    return axios.post("https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test", JSON.stringify({
-        user_id : "anwar",
-        password : "foo",
-        email: "adarkazanli96@gmail.com"
-        }))
+    /* let authOptions = {
+      method: 'POST',
+      url: 'https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test',
+      data: JSON.stringify(data),
+      headers: {
+          'Access-Control-Allow-Origin': 'localhost:3000',
+      },
+      json: true
+    }; */
+
+    return axios.post("https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data))
 
 }
 
