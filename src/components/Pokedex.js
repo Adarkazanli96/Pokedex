@@ -1,5 +1,5 @@
 import React from 'react';
-import { PokedexAPI } from '../api'
+import { AuthAPI, PokedexAPI } from '../api'
 import PokemonList from './PokemonList';
 import PokemonViewer from './PokemonViewer';
 import Controls from './Controls'
@@ -21,6 +21,13 @@ class Pokedex extends React.Component{
    updateSelectedPokemonHandler = (value) => {
     this.setState({
         selectedPokemonID: value,
+      });
+      AuthAPI.postSample()
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   }
 

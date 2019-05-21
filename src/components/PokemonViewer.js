@@ -13,6 +13,7 @@ class PokemonViewer extends React.Component{
       selectedPokemonImageURL: "",
       selectedPokemonInfo: "",
       selectedPokemonEvolutionChainNames: [],
+      selectedPokemonEvolutionChainSpeciesURLs: [],
       selectedPokemonEvolutionChainImgURLs: [],
       isLoading: false
     };
@@ -33,7 +34,7 @@ class PokemonViewer extends React.Component{
       })
       .catch(error => console.log(error));
 
-      PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
+      await PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
       .then(response => {
         const evolutionNames = [];
         const evolutionURLs = [];
@@ -50,10 +51,33 @@ class PokemonViewer extends React.Component{
         // did not get the urls for the evolution chain
         this.setState({
           selectedPokemonEvolutionChainNames: evolutionNames,
-          selectedPokemonEvolutionChainImgURLs: evolutionURLs
+          selectedPokemonEvolutionChainSpeciesURLs: evolutionURLs
       })
     })
       .catch(error => console.log(error));
+
+      const urls = this.state.selectedPokemonEvolutionChainSpeciesURLs.map(csurl => {
+        let res = csurl.split("/")
+        let pokeID = res[6];
+        return pokeID;
+      })
+
+      let imgs = [];
+
+      urls.forEach(function (item, index){
+        PokedexAPI.getPokemon(item)
+        .then(response => {
+          imgs.push(response.data.sprites.front_default);
+        })
+        .catch(error => console.log(error))
+      })
+
+      console.log(imgs);
+
+      this.setState({selectedPokemonEvolutionChainImgURLs: urls});
+      //console.log(this.state.selectedPokemonEvolutionChainImgURLs);
+
+
   }
 
   async componentWillReceiveProps (newProps){

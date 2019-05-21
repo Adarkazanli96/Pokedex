@@ -6,7 +6,7 @@ let evolutions = (props) => {
     // map images and put them before the evolutionnames below
         
     let evolutions = props.evolutionChainNames.map((p, index) => {
-            return <span className = "evolution">{p}</span> 
+            return <span className = "evolution" key = {index}>{p}</span> 
     } )
 
         return(<div className = "evolution-list">

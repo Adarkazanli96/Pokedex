@@ -29,5 +29,5 @@ export default {
     getAllPokemon,
     getPokemon,
     getEvolutionChain,
-    getEvolutionInfo
+    getEvolutionInfo,
 }
