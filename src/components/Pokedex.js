@@ -22,7 +22,7 @@ class Pokedex extends React.Component{
     this.setState({
         selectedPokemonID: value,
       });
-      AuthAPI.postSample()
+      AuthAPI.signup()
       .then(function (response) {
         console.log(response);
       })
@@ -37,6 +37,14 @@ class Pokedex extends React.Component{
       this.setState({
        translate: this.state.translate + value
      })
+
+     AuthAPI.login()
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 }
   

@@ -74,7 +74,7 @@ class PokemonViewer extends React.Component{
 
       console.log(imgs);
 
-      this.setState({selectedPokemonEvolutionChainImgURLs: urls});
+      this.setState({selectedPokemonEvolutionChainImgURLs: imgs});
       //console.log(this.state.selectedPokemonEvolutionChainImgURLs);
 
 
