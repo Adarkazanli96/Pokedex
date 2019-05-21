@@ -1,8 +1,8 @@
 import React from 'react';
 import { AuthAPI, PokedexAPI } from '../api'
-import PokemonList from './PokemonList';
-import PokemonViewer from './PokemonViewer';
-import Controls from './Controls'
+import PokemonList from '../components/PokemonList';
+import PokemonViewer from '../components/PokemonViewer';
+import Controls from '../components/Controls'
 import './Pokedex.less';
 
 class Pokedex extends React.Component{
