@@ -9,6 +9,7 @@ class SignupForm extends React.Component {
   
     handleSubmit(event) {
       event.preventDefault();
+
       const data = new FormData(event.target);
       let user = {
         user_id : data.get('username'),
@@ -22,15 +23,15 @@ class SignupForm extends React.Component {
   
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
+        <form className = "login-form" onSubmit={this.handleSubmit}>
           <label htmlFor="username">Enter username</label>
-          <input id="username" name="username" type="text" />
+          <input id="username" name="username" type="text" required/>
   
           <label htmlFor="email">Enter your email</label>
-          <input id="email" name="email" type="email" />
+          <input id="email" name="email" type="email" required/>
   
           <label htmlFor="password">Enter a password</label>
-          <input id="password" name="password" type="password" />
+          <input id="password" name="password" type="password" required/>
   
           <button>Submit</button>
         </form>

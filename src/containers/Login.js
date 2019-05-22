@@ -1,62 +1,57 @@
-import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Login.less";
+import React, { Component } from 'react';
+import axios from 'axios'
+import './Login.less'
 
-export default class Login extends Component {
-    constructor(props) {
-      super(props);
-  
-      this.state = {
-        email: "",
-        password: ""
-      };
-    }
-  
-    validateForm() {
-      return this.state.email.length > 0 && this.state.password.length > 0;
-    }
-  
-    handleChange = event => {
-      this.setState({
-        [event.target.id]: event.target.value
-      });
-    }
-  
-    handleSubmit = event => {
-      event.preventDefault();
-    }
-  
-    render() {
-      return (
-        <div className="Login">
-          <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="email" bsSize="large">
-              <ControlLabel>Email</ControlLabel>
-              <FormControl
-                autoFocus
-                type="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="password" bsSize="large">
-              <ControlLabel>Password</ControlLabel>
-              <FormControl
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
-              />
-            </FormGroup>
-            <Button
-              block
-              bsSize="large"
-              disabled={!this.validateForm()}
-              type="submit"
-            >
-              Login
-            </Button>
-          </form>
-        </div>
-      );
-    }
+class LoginPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedin : false
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+      let user = {
+        user_id : data.get('username'),
+        password : data.get('password'),
+      }
+
+      console.log(data.get('username'))
+      
+      
+      return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", user)
+      .then(response => {
+          //console.log(response.data)
+          this.setState({loggedin : response.data});
+      })
+      .catch(error => {
+          //console.log(error)
+          this.setState({loggedin : false});
+        });
+  }
+
+  render() {
+    // NOTE: I use data-attributes for easier E2E testing
+    // but you don't need to target those (any css-selector will work)
+    console.log(this.state.loggedin);
+    
+    return (
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="username">Enter username</label>
+          <input id="username" name="username" type="text" required/>
+  
+          <label htmlFor="password">Enter a password</label>
+          <input id="password" name="password" type="password" required/>
+
+          <input type="submit" value="Log In" data-test="submit"/>
+        </form>
+    );
+  }
+}
+
+export default LoginPage;
