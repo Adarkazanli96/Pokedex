@@ -5,24 +5,15 @@ import axios from 'axios'
  axios.defaults.crossDomain = true; */
 
  // storing signup info into the database
-function signup(){
-  let data = {
-    user_id : "anwar",
-    password : "foo",
-    email: "adarkazanli96@gmail.com"
-    }
+function signup(data){
   
   return axios.post("https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data))
 
 }
 
 // reading login info from a database
-function login(){
-  return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", JSON.stringify({
-        user_id : "anwar",
-        password : "foo",
-        email: "adarkazanli96@gmail.com"
-        }))
+function login(data){
+  return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data))
 }
 
 export default {

@@ -13,13 +13,14 @@ class PokemonViewer extends React.Component{
       selectedPokemonImageURL: "",
       selectedPokemonInfo: "",
       selectedPokemonEvolutionChainNames: [],
-      selectedPokemonEvolutionChainSpeciesURLs: [],
       selectedPokemonEvolutionChainImgURLs: [],
       isLoading: false
     };
   }
 
   setSelectedPokemonState = async (PokemonID) =>{
+    
+    // set the pokemons id, image, name, and species-link
     await PokedexAPI.getPokemon(PokemonID)
     .then(response => {
         const imageURL = response.data.sprites.front_default;
@@ -34,12 +35,13 @@ class PokemonViewer extends React.Component{
       })
       .catch(error => console.log(error));
 
-      let evolutionChainIDs = [];
+      let evolutionChainIDs = []; // ids of all pokemon in evolution chain (will get below)
 
+      // get the pokemons evolution info based on the species link from above
       await PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
       .then(response => {
-        const evolutionNames = [];
-        const evolutionURLs = [];
+        const evolutionNames = []; // names of all pokemon in evolution chain
+        const evolutionURLs = []; // links of all pokemon in evolution chain
         
         let evoChain = response.data.chain
         
@@ -57,28 +59,26 @@ class PokemonViewer extends React.Component{
     })
       .catch(error => console.log(error));
 
-      evolutionChainIDs = evolutionChainIDs.map(csurl => {
-        let res = csurl.split("/")
+      // get the evolution chain ids from the ends of the urls
+      evolutionChainIDs = evolutionChainIDs.map(url => {
+        let res = url.split("/")
         let pokeID = res[6];
         return pokeID;
       })
       
-      await evolutionChainIDs.sort();
-
-      console.log(evolutionChainIDs);
+      await evolutionChainIDs.sort(); // sort so the pictures would be in order
      
+      // set the pictures of the pokemon in the evolution chain
       let evolutionChainImgURLs = evolutionChainIDs.map(id => {
         let res = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png"
         return res;
       })
 
       this.setState({selectedPokemonEvolutionChainImgURLs: evolutionChainImgURLs});
-      console.log(">>" + this.state.selectedPokemonEvolutionChainImgURLs);
 
   }
 
   async componentWillReceiveProps (newProps){
-    console.log("child: component will receive props")
     if(newProps.selectedPokemonID !== this.state.selectedPokemonID){
       await this.setState({isLoading: true})
 
@@ -97,7 +97,6 @@ class PokemonViewer extends React.Component{
      }
   
   render (){
-    console.log("child: in render")
     return (<div>
       {this.state.isLoading? <div className = "loader">is loading</div> :
 

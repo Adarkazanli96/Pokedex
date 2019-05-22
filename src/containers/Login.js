@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import { AuthAPI } from '../api'
 import './Login.less'
 
 class LoginPage extends Component {
@@ -20,11 +20,8 @@ class LoginPage extends Component {
         user_id : data.get('username'),
         password : data.get('password'),
       }
-
-      console.log(data.get('username'))
       
-      
-      return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", user)
+      AuthAPI.login(user)
       .then(response => {
           //console.log(response.data)
           this.setState({loggedin : response.data});

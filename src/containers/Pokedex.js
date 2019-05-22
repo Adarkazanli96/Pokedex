@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthAPI, PokedexAPI } from '../api'
+import { PokedexAPI } from '../api'
 import PokemonList from '../components/PokemonList';
 import PokemonViewer from '../components/PokemonViewer';
 import Controls from '../components/Controls'
@@ -7,7 +7,6 @@ import './Pokedex.less';
 
 class Pokedex extends React.Component{
   constructor(props) {
-    console.log('parent: constructor');
     super(props);
 
     this.state = {
@@ -22,13 +21,7 @@ class Pokedex extends React.Component{
     this.setState({
         selectedPokemonID: value,
       });
-      AuthAPI.signup()
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
   }
 
   // add or subtract from the value of the offset
@@ -37,20 +30,11 @@ class Pokedex extends React.Component{
       this.setState({
        translate: this.state.translate + value
      })
-
-     AuthAPI.login()
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 }
   
 
   componentDidMount () {
-    console.log('parent: in component did mount')
   
     PokedexAPI.getAllPokemon()
     .then(response => {
@@ -71,11 +55,9 @@ class Pokedex extends React.Component{
   }
 
   componentDidUpdate(){
-    console.log('parent: component did update')
   }
   
   render (){
-    console.log('parent: in render')
 
     return (
       <div className = "pokedex">

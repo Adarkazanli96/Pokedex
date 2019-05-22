@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import { AuthAPI } from '../api'
 
 class SignupForm extends React.Component {
     constructor() {
@@ -16,9 +16,9 @@ class SignupForm extends React.Component {
         password : data.get('password'),
         email: data.get('email')
       }
+
+      AuthAPI.signup(user);
       
-      
-      return axios.post("https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(user))
     }
   
     render() {
