@@ -41,6 +41,7 @@ class LoginPage extends Component {
     console.log(this.state.loggedin);
     
     return (
+      <div className = "login">
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="username">Enter username</label>
           <input id="username" name="username" type="text" required/>
@@ -50,6 +51,8 @@ class LoginPage extends Component {
 
           <input type="submit" value="Log In" data-test="submit"/>
         </form>
+
+      </div>
     );
   }
 }

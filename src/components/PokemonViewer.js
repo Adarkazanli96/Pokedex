@@ -34,6 +34,8 @@ class PokemonViewer extends React.Component{
       })
       .catch(error => console.log(error));
 
+      let evolutionChainIDs = [];
+
       await PokedexAPI.getEvolutionInfo(this.state.selectedPokemonInfo)
       .then(response => {
         const evolutionNames = [];
@@ -48,35 +50,30 @@ class PokemonViewer extends React.Component{
         }
         while(evoChain && evoChain.hasOwnProperty('evolves_to'))
 
-        // did not get the urls for the evolution chain
         this.setState({
           selectedPokemonEvolutionChainNames: evolutionNames,
-          selectedPokemonEvolutionChainSpeciesURLs: evolutionURLs
       })
+      evolutionChainIDs = evolutionURLs
     })
       .catch(error => console.log(error));
 
-      const urls = this.state.selectedPokemonEvolutionChainSpeciesURLs.map(csurl => {
+      evolutionChainIDs = evolutionChainIDs.map(csurl => {
         let res = csurl.split("/")
         let pokeID = res[6];
         return pokeID;
       })
+      
+      await evolutionChainIDs.sort();
 
-      let imgs = [];
-
-      urls.forEach(function (item, index){
-        PokedexAPI.getPokemon(item)
-        .then(response => {
-          imgs.push(response.data.sprites.front_default);
-        })
-        .catch(error => console.log(error))
+      console.log(evolutionChainIDs);
+     
+      let evolutionChainImgURLs = evolutionChainIDs.map(id => {
+        let res = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png"
+        return res;
       })
 
-      console.log(imgs);
-
-      this.setState({selectedPokemonEvolutionChainImgURLs: imgs});
-      //console.log(this.state.selectedPokemonEvolutionChainImgURLs);
-
+      this.setState({selectedPokemonEvolutionChainImgURLs: evolutionChainImgURLs});
+      console.log(">>" + this.state.selectedPokemonEvolutionChainImgURLs);
 
   }
 
@@ -95,9 +92,9 @@ class PokemonViewer extends React.Component{
 
   }
 
-  componentDidMount () {
-    this.setSelectedPokemonState(this.props.selectedPokemonID)
-  }
+  async componentDidMount () {
+    await this.setSelectedPokemonState(this.props.selectedPokemonID)
+     }
   
   render (){
     console.log("child: in render")
