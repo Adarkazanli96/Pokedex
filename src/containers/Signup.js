@@ -7,7 +7,7 @@ class SignupForm extends React.Component {
       super();
       this.handleSubmit = this.handleSubmit.bind(this);
     }
-  
+
     handleSubmit(event) {
       event.preventDefault();
 
