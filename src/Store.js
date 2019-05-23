@@ -1,5 +1,7 @@
 import Reducer from './reducers/Reducer'
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+
+
 
 // create store
 const store = createStore(Reducer, window.STATE_FROM_SERVER);

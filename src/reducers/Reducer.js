@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import UserReducer from './UserReducer'
+import { userReducer } from './UserReducer'
 import { loginreducer} from './LoginReducer'
 
 
@@ -16,11 +16,13 @@ the state it manages.*/
 
 // reducers are the action handlers
 
-const rootReducer = combineReducers({
-  UserReducer,
-  loginreducer
+// combine all the reducers into one
+const allReducers = combineReducers({
+  userInfo: userReducer,
+  isLoggedIn: loginreducer
 });
-export default rootReducer;
+
+export default allReducers;
 
 /* All combineReducers() does is generate a function that calls your reducers with the
 slices of state selected according to their keys, and combines their results  */

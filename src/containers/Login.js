@@ -4,7 +4,6 @@ import './Login.less'
 
 import { connect } from 'react-redux';
 import { getUser, setLoginPending, setLoginSuccess,  setLoginError} from '../actions/actions'; // get the actions
-import { loginreducer } from '../reducers/Reducer'
 
 class LoginPage extends Component {
   constructor() {
@@ -52,7 +51,7 @@ class LoginPage extends Component {
   
           <input id="password" name="password" type="password" placeholder = "Password" required/>
 
-          <input type="submit" value="LOGIN" data-test="submit"/>
+          <input className = "login-btn" type="submit" value="LOGIN" data-test="submit"/>
         </form>
 
       </div>
@@ -65,11 +64,13 @@ class LoginPage extends Component {
     isLoggedIn: state.isLoggedIn
   });
   
+  // dispatch() is the method used to dispatch actions and trigger state changes to the store
   const mapDispatchToProps = dispatch => { 
     return {
       onLogin: (isLoggedIn) => { // onLogin gets called above ^^
         dispatch(setLoginSuccess(isLoggedIn)); // isLoggedIn boolean passed to action
     },
+
   };
   }
 
