@@ -4,6 +4,7 @@ import './Login.less'
 
 import { connect } from 'react-redux';
 import { getUser, setLoginPending, setLoginSuccess,  setLoginError} from '../actions/actions'; // get the actions
+import { loginreducer } from '../reducers/Reducer'
 
 class LoginPage extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class LoginPage extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { isLoggedIn } = this.state; // get the old state
+    const { isLoggedIn } = this.state; // get the current state from the store
     
 
     const data = new FormData(event.target);
@@ -30,12 +31,12 @@ class LoginPage extends Component {
       .then(response => {
           //console.log(response.data)
           if(response.data === true){
-            this.props.onLogin(true); // set the new state by calling the onLogin function
+            this.props.onLogin(true); // call onLogin() to invoke action
           }
       })
       .catch(error => {
           //console.log(error)
-          this.props.onLogin(false); // set the new state by calling onLogin () function
+          this.props.onLogin(false); // call onLogin() to invoke action
         });
 
          
@@ -64,11 +65,10 @@ class LoginPage extends Component {
     isLoggedIn: state.isLoggedIn
   });
   
-  const mapDispatchToProps = dispatch => {
-    
+  const mapDispatchToProps = dispatch => { 
     return {
-      onLogin: (isLoggedIn) => { // onLogin called from the login compopnent
-        dispatch(setLoginSuccess(isLoggedIn));
+      onLogin: (isLoggedIn) => { // onLogin gets called above ^^
+        dispatch(setLoginSuccess(isLoggedIn)); // isLoggedIn boolean passed to action
     },
   };
   }

@@ -37,7 +37,8 @@ class Pokedex extends React.Component{
   
 
   componentDidMount () {
-    console.log(store.getState(user).LoginReducer);
+    console.log(store.getState().LoginReducer);
+    console.log(store.getState())
   
     PokedexAPI.getAllPokemon()
     .then(response => {
