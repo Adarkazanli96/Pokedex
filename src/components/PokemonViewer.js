@@ -86,7 +86,7 @@ class PokemonViewer extends React.Component{
 
       setTimeout(() => {
         this.setState({isLoading:false});
-      },1000);
+      },900);
 
     }
 

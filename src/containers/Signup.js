@@ -1,5 +1,6 @@
 import React from 'react'
 import { AuthAPI } from '../api'
+import "./Signup.less"
 
 class SignupForm extends React.Component {
     constructor() {
@@ -23,18 +24,14 @@ class SignupForm extends React.Component {
   
     render() {
       return (
-        <div className = "signup">
-          <form className = "login-form" onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Enter username</label>
-          <input id="username" name="username" type="text" required/>
+        <div className = "signup-container">
+          <form className = "signup" onSubmit={this.handleSubmit}>
+            <input id="username" name="username" type="text" placeholder = "Username" required/>
   
-          <label htmlFor="email">Enter your email</label>
-          <input id="email" name="email" type="email" required/>
+            <input id="email" name="email" type="email" placeholder = "Email" required/>
   
-          <label htmlFor="password">Enter a password</label>
-          <input id="password" name="password" type="password" required/>
-  
-          <button>Submit</button>
+            <input id="password" name="password" type="password" placeholder = "Password" required/>
+            <input type="submit" value="SIGNUP" data-test="submit"/>
         </form>
         </div>
       );

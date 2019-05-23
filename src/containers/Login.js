@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { AuthAPI } from '../api'
 import './Login.less'
 
+import { connect } from 'react-redux';
+import { getUser, setLoginPending, setLoginSuccess,  setLoginError} from '../actions/actions'; // get the actions
+
 class LoginPage extends Component {
   constructor() {
     super();
     this.state = {
-      loggedin : false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -14,6 +16,9 @@ class LoginPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    const { isLoggedIn } = this.state; // get the old state
+    
 
     const data = new FormData(event.target);
       let user = {
@@ -24,29 +29,29 @@ class LoginPage extends Component {
       AuthAPI.login(user)
       .then(response => {
           //console.log(response.data)
-          this.setState({loggedin : response.data});
+          if(response.data === true){
+            this.props.onLogin(true); // set the new state by calling the onLogin function
+          }
       })
       .catch(error => {
           //console.log(error)
-          this.setState({loggedin : false});
+          this.props.onLogin(false); // set the new state by calling onLogin () function
         });
+
+         
   }
 
   render() {
-    // NOTE: I use data-attributes for easier E2E testing
-    // but you don't need to target those (any css-selector will work)
-    console.log(this.state.loggedin);
     
     return (
-      <div className = "login">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Enter username</label>
-          <input id="username" name="username" type="text" required/>
-  
-          <label htmlFor="password">Enter a password</label>
-          <input id="password" name="password" type="password" required/>
+      <div className = "login-container">
+        <form className = "login" onSubmit={this.handleSubmit}>
 
-          <input type="submit" value="Log In" data-test="submit"/>
+          <input id="username" name="username" type="text" placeholder = "Username" required/>
+  
+          <input id="password" name="password" type="password" placeholder = "Password" required/>
+
+          <input type="submit" value="LOGIN" data-test="submit"/>
         </form>
 
       </div>
@@ -54,4 +59,18 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+  const mapStateToProps = state => ({
+    user: state.user,
+    isLoggedIn: state.isLoggedIn
+  });
+  
+  const mapDispatchToProps = dispatch => {
+    
+    return {
+      onLogin: (isLoggedIn) => { // onLogin called from the login compopnent
+        dispatch(setLoginSuccess(isLoggedIn));
+    },
+  };
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

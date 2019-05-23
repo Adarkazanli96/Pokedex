@@ -4,6 +4,8 @@ import PokemonList from '../components/PokemonList';
 import PokemonViewer from '../components/PokemonViewer';
 import Controls from '../components/Controls'
 import './Pokedex.less';
+import store from '../Store'
+import user from '../reducers/UserReducer';
 
 class Pokedex extends React.Component{
   constructor(props) {
@@ -35,6 +37,7 @@ class Pokedex extends React.Component{
   
 
   componentDidMount () {
+    console.log(store.getState(user).LoginReducer);
   
     PokedexAPI.getAllPokemon()
     .then(response => {
