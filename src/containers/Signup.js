@@ -19,19 +19,21 @@ class SignupForm extends React.Component {
       }
 
       AuthAPI.signup(user);
+      document.getElementById("signup-form").reset();
       
     }
   
     render() {
       return (
         <div className = "signup-container">
-          <form className = "signup" onSubmit={this.handleSubmit}>
-            <input id="username" name="username" type="text" placeholder = "Username" required/>
+          <form className = "signup" id = "signup-form" onSubmit={this.handleSubmit}>
+            <input className = "signup-input" id="username" name="username" type="text" placeholder = "Username" required/>
   
-            <input id="email" name="email" type="email" placeholder = "Email" required/>
+            <input className = "signup-input" id="email" name="email" type="email" placeholder = "Email" required/>
   
-            <input id="password" name="password" type="password" placeholder = "Password" required/>
-            <input type="submit" value="SIGNUP" data-test="submit"/>
+            <input className = "signup-input" id="password" name="password" type="password" placeholder = "Password" required/>
+            <button className = "signup-btn" type="submit">SIGNUP</button>
+
         </form>
         </div>
       );

@@ -1,35 +1,46 @@
-input {
+//margin:0 auto; centering the input field within the div
+/*display: block; the input fields are stacked ontop of each other*/
+
+.login-input {
     
     background-color: white;
-    //width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
-    outline: 0;
   
     display: block;
-  width: 330px;
-  padding: 8px 15px;
-  border: 1px solid gray;
-  font-size: 16px;
-  font-weight: 400;
+    width: 330px;
+    padding: 8px 15px;
+    border: 1px solid gray;
+    font-size: 16px;
+    font-weight: 400;
+    margin:0 auto;
 }
 
 .login-container{
-    margin: 0 auto;
-    width: 100px; 
+    width: 480px;
+    text-align:center;
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+
 }
 
-// might change the actual tag to a button tag to separate from above
 .login-btn{
   background-color: #363344;
   color: white;
-  width: 100px;
-  border-radius: 0px;
+  width: 160px;
   text-align: center;
 
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 12pt;
+  border: none;
+  transition-duration: 0.3s
+
+}
+
+.login-btn:hover{
+  background-color: #c1c1bf;
+  cursor: pointer;
 }
 

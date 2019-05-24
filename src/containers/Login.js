@@ -10,11 +10,10 @@ class LoginPage extends Component {
     super();
     this.state = {
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const { isLoggedIn } = this.state; // get the current state from the store
@@ -31,6 +30,7 @@ class LoginPage extends Component {
           //console.log(response.data)
           if(response.data === true){
             this.props.onLogin(true); // call onLogin() to invoke action
+            this.props.getUser(user);
           }
       })
       .catch(error => {
@@ -38,6 +38,7 @@ class LoginPage extends Component {
           this.props.onLogin(false); // call onLogin() to invoke action
         });
 
+        document.getElementById("login-form").reset();
          
   }
 
@@ -45,13 +46,13 @@ class LoginPage extends Component {
     
     return (
       <div className = "login-container">
-        <form className = "login" onSubmit={this.handleSubmit}>
+        <form className = "login" id="login-form" onSubmit={this.handleSubmit}>
 
-          <input id="username" name="username" type="text" placeholder = "Username" required/>
+          <input className = "login-input" id="username" name="username" type="text" placeholder = "Username" required/>
   
-          <input id="password" name="password" type="password" placeholder = "Password" required/>
+          <input className = "login-input" id="password" name="password" type="password" placeholder = "Password" required/>
 
-          <input className = "login-btn" type="submit" value="LOGIN" data-test="submit"/>
+          <button className = "login-btn" type="submit">LOGIN</button>
         </form>
 
       </div>
@@ -59,6 +60,7 @@ class LoginPage extends Component {
   }
 }
 
+// put these in a login container
   const mapStateToProps = state => ({
     user: state.user,
     isLoggedIn: state.isLoggedIn
@@ -68,8 +70,11 @@ class LoginPage extends Component {
   const mapDispatchToProps = dispatch => { 
     return {
       onLogin: (isLoggedIn) => { // onLogin gets called above ^^
-        dispatch(setLoginSuccess(isLoggedIn)); // isLoggedIn boolean passed to action
-    },
+        dispatch(setLoginSuccess(isLoggedIn)); // dispatch action to store
+      },
+      getUser: (userInfo) =>{
+        dispatch(getUser(userInfo));
+      }
 
   };
   }
