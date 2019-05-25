@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './UserReducer'
 import { loginreducer} from './LoginReducer'
+import reducer from './SignupReducer'
 
 
 /* Reducers specify how the application's state changes in response to actions
@@ -19,7 +20,8 @@ the state it manages.*/
 // combine all the reducers into one
 const allReducers = combineReducers({
   userInfo: userReducer,
-  isLoggedIn: loginreducer
+  isLoggedIn: loginreducer,
+  reducer
 });
 
 export default allReducers;

@@ -1,5 +1,7 @@
 import React from 'react'
 import { AuthAPI } from '../api'
+import {userPostFetch} from '../actions/actions'
+import { connect } from 'react-redux';
 import "./Signup.less"
 
 class SignupForm extends React.Component {
@@ -18,7 +20,7 @@ class SignupForm extends React.Component {
         email: data.get('email')
       }
 
-      AuthAPI.signup(user);
+      this.props.userPostFetch(user);
       document.getElementById("signup-form").reset();
       
     }
@@ -40,4 +42,8 @@ class SignupForm extends React.Component {
     }
   }
 
-  export default SignupForm;
+  const mapDispatchToProps = dispatch => ({
+    userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+  })
+  
+  export default connect(null, mapDispatchToProps)(SignupForm);

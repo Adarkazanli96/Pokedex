@@ -3,7 +3,7 @@ import { AuthAPI } from '../api'
 import './Login.less'
 
 import { connect } from 'react-redux';
-import { getUser, setLoginPending, setLoginSuccess,  setLoginError} from '../actions/actions'; // get the actions
+import { getUser, setLoginPending, setLoginSuccess,  userLoginFetch} from '../actions/actions'; // get the actions
 
 class LoginPage extends Component {
   constructor() {
@@ -25,18 +25,7 @@ class LoginPage extends Component {
         password : data.get('password'),
       }
       
-      AuthAPI.login(user)
-      .then(response => {
-          //console.log(response.data)
-          if(response.data === true){
-            this.props.onLogin(true); // call onLogin() to invoke action
-            this.props.getUser(user);
-          }
-      })
-      .catch(error => {
-          //console.log(error)
-          this.props.onLogin(false); // call onLogin() to invoke action
-        });
+        this.props.userLoginFetch(user);
 
         document.getElementById("login-form").reset();
          
@@ -74,7 +63,9 @@ class LoginPage extends Component {
       },
       getUser: (userInfo) =>{
         dispatch(getUser(userInfo));
-      }
+      },
+
+      userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
 
   };
   }

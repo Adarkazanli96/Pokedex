@@ -16,9 +16,28 @@ function login(data){
   return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data))
 }
 
-export default {
-    signup,
-    login
+
+function axiosSignup(data){
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+  }
+  
+  return axios.post("https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data), config)
+}
+
+
+function axiosLogin(data){
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+  }
+  
+  return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data), config)
 }
 
 /* let url = 'https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test';
@@ -60,3 +79,10 @@ export default {
   }}); */
 
     //return axios.post(authOptions)
+
+    export default {
+      signup,
+      login,
+      axiosLogin,
+      axiosSignup
+  }
