@@ -40,6 +40,19 @@ function axiosLogin(data){
   return axios.post("https://2awdpfj030.execute-api.us-east-1.amazonaws.com/test", JSON.stringify(data), config)
 }
 
+function axiosGetUser(){
+  
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Authorization' : localStorage.token
+    }
+  }
+
+  return axios.get('https://mwuzus6n66.execute-api.us-east-1.amazonaws.com/test', config);
+}
+
 /* let url = 'https://qpby0b5jj6.execute-api.us-east-1.amazonaws.com/test';
   let method = 'POST';
   let xhr = new XMLHttpRequest();
@@ -84,5 +97,6 @@ function axiosLogin(data){
       signup,
       login,
       axiosLogin,
-      axiosSignup
+      axiosSignup,
+      axiosGetUser
   }

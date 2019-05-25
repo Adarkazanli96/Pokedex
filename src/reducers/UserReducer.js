@@ -5,11 +5,11 @@ export function userReducer (state = {
   password: null
 }, action) {
     switch (action.type) {
-        
-        case 'GET_USER':
-            return action.payload 
-            
-        default:
-            return state; // return the default state
+      case 'LOGIN_USER':
+        return {...state, currentUser: action.payload}
+      case 'LOGOUT_USER':
+        return {...state, currentUser: {} }
+      default:
+        return state;
     }
   };

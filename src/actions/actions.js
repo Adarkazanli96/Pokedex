@@ -66,6 +66,10 @@ const loginUser = userObj => ({
   payload: userObj
 })
 
+export const logoutUser = () => ({
+  type: 'LOGOUT_USER'
+})
+
 
 export const userLoginFetch = user => {
   return dispatch => {
@@ -81,11 +85,31 @@ export const userLoginFetch = user => {
           
         } else {
           console.log(response.data)
-          console.log(">> logging the user data for login: " + response.data.user);
+          console.log(">> logging the user data for login: " + JSON.stringify(response.data.user));
           console.log(">> logging the json token: " + response.data.jwt)
           localStorage.setItem("token", response.data.jwt)
           dispatch(loginUser(response.data.user))
         }
       })
+  }
+}
+
+
+export const getProfileFetch = () => {
+  return dispatch => {
+    const token = localStorage.token;
+    if (token) {
+      return AuthAPI.axiosGetUser()
+        .then(response => {
+          if (response.message) {
+            // An error will occur if the token is invalid.
+            // If this happens, you may want to remove the invalid token.
+            localStorage.removeItem("token")
+          } else {
+            console.log("in getprofilfetch()" + JSON.stringify(response.data));
+            dispatch(loginUser(response.data.user))
+          }
+        })
+    }
   }
 }

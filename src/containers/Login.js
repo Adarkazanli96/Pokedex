@@ -3,7 +3,7 @@ import { AuthAPI } from '../api'
 import './Login.less'
 
 import { connect } from 'react-redux';
-import { getUser, setLoginPending, setLoginSuccess,  userLoginFetch} from '../actions/actions'; // get the actions
+import { getUser, setLoginPending, setLoginSuccess,  userLoginFetch, getProfileFetch} from '../actions/actions'; // get the actions
 
 class LoginPage extends Component {
   constructor() {
@@ -26,6 +26,7 @@ class LoginPage extends Component {
       }
       
         this.props.userLoginFetch(user);
+        
 
         document.getElementById("login-form").reset();
          
@@ -65,7 +66,7 @@ class LoginPage extends Component {
         dispatch(getUser(userInfo));
       },
 
-      userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo))
+      userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
 
   };
   }
