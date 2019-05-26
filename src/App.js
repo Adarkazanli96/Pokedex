@@ -9,8 +9,12 @@ import store from './Store'
 import { Route, Switch } from "react-router-dom";
 import Pokedex from './containers/Pokedex'
 import Login from "./containers/Login";
+import Logout from './containers/Logout'
 import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup"
+
+import { withRouter } from 'react-router-dom'
+import { PrivateRoute } from './components/PrivateRoute'
 
 
 class App extends React.Component{
@@ -18,14 +22,15 @@ class App extends React.Component{
     super(props);
   
     this.state = {
-      isAuthenticated: false
+      authorized: false
     };
+
   }
 
-  async componentDidMount(){
-    await this.props.getProfileFetch()
-    console.log(store.getState());
-    console.log(this.props.currentUser)
+ async componentDidMount(){
+   await this.props.getProfileFetch();
+  this.setState({authorized: store.getState().reducer.isAuthenticated})
+    
   }
 
   handleClick = event => {
@@ -37,39 +42,33 @@ class App extends React.Component{
   }
   
   render (){
+  this.props.getProfileFetch();
 
     return (
       <div className = "bg">
         <ul className="navbar">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/signup">Signup</Link></li>
-        <li><Link to="/login">Login</Link></li>
+        <Link to="/">Home |</Link>
+        <Link to="/signup">Signup |</Link>
+        <Link to="/login">Login | </Link>
+{this.state.authorized
+  ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
+  : null
+}        
         </ul> 
         <Switch>
-    <Route path="/" exact component={Pokedex} />
-    <Route path="/login" exact component={Login} />
-    <Route path="/signup" exact component={Signup} />
-    { /* Finally, catch all unmatched routes */ }
-    <Route component={NotFound} />
-  </Switch>
-  {this.props.currentUser.user_id
-            ? <button onClick={this.handleClick}>Log Out</button>
-            : null
-          }
+          <PrivateRoute path="/" exact component={Pokedex} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+        </Switch>
       </div>
         
     );
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.reducer.currentUser
-})
-
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
   logoutUser: () => dispatch(logoutUser())
 })
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));

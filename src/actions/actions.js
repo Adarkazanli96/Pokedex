@@ -53,8 +53,8 @@ export const userPostFetch = user => {
         } else {
           console.log(response.data)
           localStorage.setItem("token", response.data.jwt)
-          dispatch(loginUser(response.data.user))
-          console.log(">> logging the user data: " + response.data.user);
+          dispatch(loginUser(JSON.stringify(response.data.user)))
+          console.log(">> logging the user data: " + JSON.stringify(response.data.user));
           console.log(">> logging the json token: " + response.data.jwt)
         }
       })
@@ -68,6 +68,11 @@ const loginUser = userObj => ({
 
 export const logoutUser = () => ({
   type: 'LOGOUT_USER'
+})
+
+export const setAuthenticated = (status) =>({
+  type: 'SET_AUTHENTICATED',
+  payload: status
 })
 
 
@@ -88,7 +93,7 @@ export const userLoginFetch = user => {
           console.log(">> logging the user data for login: " + JSON.stringify(response.data.user));
           console.log(">> logging the json token: " + response.data.jwt)
           localStorage.setItem("token", response.data.jwt)
-          dispatch(loginUser(response.data.user))
+          dispatch(loginUser(JSON.stringify(response.data.user)))
         }
       })
   }
@@ -107,7 +112,8 @@ export const getProfileFetch = () => {
             localStorage.removeItem("token")
           } else {
             console.log("in getprofilfetch()" + JSON.stringify(response.data));
-            dispatch(loginUser(response.data.user))
+            dispatch(loginUser(JSON.stringify(response.data.user)))
+            dispatch(setAuthenticated(true))
           }
         })
     }
