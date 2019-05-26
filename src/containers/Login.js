@@ -3,6 +3,7 @@ import './Login.less'
 
 import { connect } from 'react-redux';
 import { userLoginFetch} from '../actions/actions'; // get the actions
+import store from '../Store';
 
 class LoginPage extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class LoginPage extends Component {
   }
 
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();    
 
     const data = new FormData(event.target);
@@ -21,10 +22,25 @@ class LoginPage extends Component {
         password : data.get('password'),
       }
       
-        this.props.userLoginFetch(user);
-        
+        await this.props.userLoginFetch(user);
 
-        document.getElementById("login-form").reset();
+        console.log("checking if login was successful " + store.getState().reducer.isAuthenticated)
+
+        // authentication was sucessful
+        if(JSON.stringify(store.getState().reducer.isAuthenticated)){
+          console.log("in login comoponent " + store.getState())
+          this.props.history.push("/");
+        }
+        
+        //this.props.location.reload();
+
+
+        
+// wrong username or password
+else{
+  document.getElementById("login-form").reset();
+
+}
          
   }
 

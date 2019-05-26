@@ -25,21 +25,26 @@ class App extends React.Component{
   this.setState({authorized: store.getState().reducer.isAuthenticated})
 }
 
+//we need to fire the above everytime the global state updates
 
-  handleClick = event => {
+
+  handleClick = async event => {
     event.preventDefault()
     // Remove the token from localStorage
     localStorage.removeItem("token")
     // Remove the user object from the Redux store
-    this.props.logoutUser()
+    await this.props.logoutUser()
+    await this.props.getProfileFetch()
+    
+    this.props.history.push("/login");
   }
   
   render (){
     let routes;
-    if(this.state.authorized){
+    if(store.getState().reducer.isAuthenticated){
       routes = <AuthorizedRoutes/>
     }
-    else if(this.state.authorized === false){
+    else if(store.getState().reducer.isAuthenticated === false){
       routes = <NonAuthorizedRoutes/>
     }
     else{
@@ -55,7 +60,7 @@ class App extends React.Component{
         <Link to="/">Home |</Link>
         <Link to="/signup">Signup |</Link>
         <Link to="/login">Login | </Link>
-        {this.state.authorized
+        {store.getState().reducer.isAuthenticated
             ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
             : null
           }        

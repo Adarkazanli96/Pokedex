@@ -39,6 +39,8 @@ export const userPostFetch = user => {
           console.log(response.data)
           localStorage.setItem("token", response.data.jwt)
           dispatch(loginUser(JSON.stringify(response.data.user)))
+          dispatch(setAuthenticated(true))
+
           console.log(">> logging the user data: " + JSON.stringify(response.data.user));
           console.log(">> logging the json token: " + response.data.jwt)
         }
@@ -79,6 +81,8 @@ export const userLoginFetch = user => {
           console.log(">> logging the json token: " + response.data.jwt)
           localStorage.setItem("token", response.data.jwt)
           dispatch(loginUser(JSON.stringify(response.data.user)))
+          dispatch(setAuthenticated(true))
+
         }
       })
   }
