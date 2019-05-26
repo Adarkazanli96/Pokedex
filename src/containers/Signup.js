@@ -20,7 +20,7 @@ class SignupForm extends React.Component {
         email: data.get('email')
       }
 
-      this.props.userPostFetch(user);
+      //this.props.userPostFetch(user);
       document.getElementById("signup-form").reset();
       
     }

@@ -3,11 +3,15 @@ import React from 'react'
 import store from '../Store'
 
 export const PrivateRoute = ({ component: Component, ...props }) => {
+  //console.log("boutta check authentication: " + props.isAuth)
+    
+  
+  
   return (
     <Route
       {...props}
       render={innerProps =>
-        store.getState().reducer.isAuthenticated ? 
+        props.isAuth ? 
             <Component {...innerProps} />
             :
             <Redirect

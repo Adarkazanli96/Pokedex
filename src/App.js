@@ -6,10 +6,9 @@ import {getProfileFetch, logoutUser} from './actions/actions'
 import { connect } from 'react-redux';
 import store from './Store'
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Pokedex from './containers/Pokedex'
 import Login from "./containers/Login";
-import Logout from './containers/Logout'
 import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup"
 
@@ -22,15 +21,59 @@ class App extends React.Component{
     super(props);
   
     this.state = {
-      authorized: false
+      authorized: false,
     };
+
+    //this.props.getProfileFetch();
+    this.props.getProfileFetch();
 
   }
 
  async componentDidMount(){
-   await this.props.getProfileFetch();
-  this.setState({authorized: store.getState().reducer.isAuthenticated})
+   //await this.props.getProfileFetch();
+  
+ await this.props.getProfileFetch();
+ this.setState({authorized: store.getState().reducer.isAuthenticated})
+  
     
+  }
+
+  shouldComponentUpdate(){
+
+    return true;
+  }
+
+ static getDerivedStateFrom(props, state){
+     //await this.props.getProfileFetch();
+     //this.setState({authorized: store.getState().reducer.isAuthenticated})
+      //this.props.getProfileFetch();
+      //this.setState({authorized: store.getState().reducer.isAuthenticated})
+
+  console.log("in component getderived from state" + store.getState().reducer.isAuthenticated);
+  //this.forceUpdate();
+
+  
+
+     
+  }
+
+  componentWillUpdate(nextProps, nextState){
+
+  }
+
+  check = () =>{
+    let bool;
+    this.props.getProfileFetch()
+    //bool = Object.assign({}, store.getState());
+    bool = store.getState().reducer.isAuthenticated
+    console.log("value of bool is " + bool)
+    
+    
+  //bool = JSON.stringify(bool);
+    console.log("value of bool is " + bool)
+
+    return bool;
+
   }
 
   handleClick = event => {
@@ -42,33 +85,58 @@ class App extends React.Component{
   }
   
   render (){
-  this.props.getProfileFetch();
+    console.log()
+    console.log('in render' + this.check());
+    //console.log('in render' + JSON.stringify(this.check()));
+
+    let something = (<Switch>
+  {/*<Route exact path="/" render={() => (
+  
+    <Redirect to="/login"/>
+  )}/>*/}
+    <Route path="/" exact component={Login} />
+    <Route path="/login" exact component={Login} />
+    <Route path="/signup" exact component={Signup} /></Switch>)
+      
+
+    if(this.state.authorized){
+          something = (
+          <Switch><Route path="/" exact component={Pokedex} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} /></Switch>)
+          
+    }
+
 
     return (
+      
       <div className = "bg">
         <ul className="navbar">
         <Link to="/">Home |</Link>
         <Link to="/signup">Signup |</Link>
         <Link to="/login">Login | </Link>
-{this.state.authorized
-  ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
-  : null
-}        
+        {this.check()
+            ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
+            : null
+          }        
         </ul> 
-        <Switch>
-          <PrivateRoute path="/" exact component={Pokedex} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
-        </Switch>
+            {something}
+          
       </div>
         
     );
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user,
+  isLoggedIn: state.isLoggedIn,
+  isAuthenticated: state.reducer.isAuthenticated
+});
+
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
   logoutUser: () => dispatch(logoutUser())
 })
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

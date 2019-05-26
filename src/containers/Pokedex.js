@@ -11,8 +11,6 @@ import { connect } from 'react-redux';
 import {getProfileFetch} from '../actions/actions'
 import { withRouter } from 'react-router-dom'
 
-//import user from '../reducers/UserReducer';
-
 class Pokedex extends React.Component{
   constructor(props) {
     super(props);
