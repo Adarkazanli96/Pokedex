@@ -6,25 +6,10 @@ using store.dispatch(). */
 
 // Actions only say what happened, not what to do about it
 
-export const getUser = user => ({
+/* export const getUser = user => ({
   type: 'GET_USER', // Type of action (basically the name of the action)
   payload: user // The payload is the information that gets sent to the store
-});
-
-export const setLoginPending = isLoginPending => ({
-      type: 'SET_LOGIN_PENDING',
-      payload: isLoginPending
-});
-
-export const setLoginSuccess = isLoginSuccessBoolean => ({
-    type: 'SET_LOGIN_SUCCESS',
-    payload: isLoginSuccessBoolean
-});
-  
-export const setLoginError = loginError => ({
-    type: 'SET_LOGIN_ERROR',
-    payload: loginError
-});
+}); */
   
 // getUser is the action creator
 
@@ -110,12 +95,17 @@ export const getProfileFetch = () => {
             // An error will occur if the token is invalid.
             // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")
+            dispatch(setAuthenticated(false))
           } else {
             console.log("in getprofilfetch()" + JSON.stringify(response.data));
             dispatch(loginUser(JSON.stringify(response.data.user)))
             dispatch(setAuthenticated(true))
           }
         })
+    }
+    else{
+      dispatch(setAuthenticated(false))
+
     }
   }
 }

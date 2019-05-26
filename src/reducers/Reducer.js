@@ -19,8 +19,8 @@ the state it manages.*/
 
 // combine all the reducers into one
 const allReducers = combineReducers({
-  userInfo: userReducer,
-  isLoggedIn: loginreducer,
+  //userInfo: userReducer,
+  //isLoggedIn: loginreducer,
   reducer
 });
 

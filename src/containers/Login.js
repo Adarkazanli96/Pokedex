@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AuthAPI } from '../api'
 import './Login.less'
 
 import { connect } from 'react-redux';
-import { getUser, setLoginPending, setLoginSuccess,  userLoginFetch, getProfileFetch} from '../actions/actions'; // get the actions
+import { userLoginFetch} from '../actions/actions'; // get the actions
 
 class LoginPage extends Component {
   constructor() {
@@ -14,10 +13,7 @@ class LoginPage extends Component {
 
 
   handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { isLoggedIn } = this.state; // get the current state from the store
-    
+    event.preventDefault();    
 
     const data = new FormData(event.target);
       let user = {
@@ -59,12 +55,6 @@ class LoginPage extends Component {
   // dispatch() is the method used to dispatch actions and trigger state changes to the store
   const mapDispatchToProps = dispatch => { 
     return {
-      onLogin: (isLoggedIn) => { // onLogin gets called above ^^
-        dispatch(setLoginSuccess(isLoggedIn)); // dispatch action to store
-      },
-      getUser: (userInfo) =>{
-        dispatch(getUser(userInfo));
-      },
 
       userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
 

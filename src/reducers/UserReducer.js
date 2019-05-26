@@ -1,5 +1,5 @@
 // set the initial state of the userinfo to {user: "user", password: "password"}
-
+// probably don't need this reducer
 export function userReducer (state = {
   user_id: null,
   password: null

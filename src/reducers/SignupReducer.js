@@ -1,6 +1,6 @@
 const initialState = {
     currentUser: {},
-    isAuthenticated: false
+    isAuthenticated: null
   }
   
   export default function reducer(state = initialState, action) {

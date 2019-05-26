@@ -4,12 +4,6 @@ import PokemonList from '../components/PokemonList';
 import PokemonViewer from '../components/PokemonViewer';
 import Controls from '../components/Controls'
 import './Pokedex.less';
-import store from '../Store'
-import {Router} from 'react-router-dom';
-import {BrowserRouter} from 'react-router';
-import { connect } from 'react-redux';
-import {getProfileFetch} from '../actions/actions'
-import { withRouter } from 'react-router-dom'
 
 class Pokedex extends React.Component{
   constructor(props) {
@@ -41,9 +35,6 @@ class Pokedex extends React.Component{
   
 
   componentDidMount () {
-    //this.props.getProfileFetch();
-
-    //console.log(store.getState())
   
     PokedexAPI.getAllPokemon()
     .then(response => {
@@ -99,8 +90,4 @@ class Pokedex extends React.Component{
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getProfileFetch: () => dispatch(getProfileFetch())
-})
-
-export default withRouter(connect(null, mapDispatchToProps)(Pokedex));
+export default Pokedex;
