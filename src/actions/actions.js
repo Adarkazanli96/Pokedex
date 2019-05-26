@@ -28,7 +28,7 @@ export const userPostFetch = user => {
     return AuthAPI.axiosSignup(user)
       //.then(resp => resp.json())
       .then(response => {
-        if (response.message) {
+        if (response.data.message) {
           // Here you should have logic to handle invalid login credentials.
           // This assumes your Rails API will return a JSON object with a key of
           // 'message' if there is an error
@@ -68,7 +68,7 @@ export const userLoginFetch = user => {
     return AuthAPI.axiosLogin(user)
       //.then(resp => resp.json())
       .then(response => {
-        if (response.message) {
+        if (response.data.message) {
           // Here you should have logic to handle invalid login credentials.
           // This assumes your Rails API will return a JSON object with a key of
           // 'message' if there is an error
@@ -95,7 +95,7 @@ export const getProfileFetch = () => {
     if (token) {
       return AuthAPI.axiosGetUser()
         .then(response => {
-          if (response.message) {
+          if (response.data.message) {
             // An error will occur if the token is invalid.
             // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")

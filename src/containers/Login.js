@@ -26,21 +26,19 @@ class LoginPage extends Component {
 
         console.log("checking if login was successful " + store.getState().reducer.isAuthenticated)
 
+        let isAuth = store.getState().reducer.isAuthenticated;
+
         // authentication was sucessful
-        if(JSON.stringify(store.getState().reducer.isAuthenticated)){
-          console.log("in login comoponent " + store.getState())
+        if(isAuth){
           this.props.history.push("/");
         }
-        
-        //this.props.location.reload();
 
+      // wrong username or password
+      else if(!isAuth){
+        console.log("about to clear the login form")
+        document.getElementById("login-form").reset();
 
-        
-// wrong username or password
-else{
-  document.getElementById("login-form").reset();
-
-}
+      }
          
   }
 
