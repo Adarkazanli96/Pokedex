@@ -57,9 +57,6 @@ class App extends React.Component{
       
       <div className = "bg">
         <ul className="navbar">
-        <Link to="/">Home |</Link>
-        <Link to="/signup">Signup |</Link>
-        <Link to="/login">Login | </Link>
         {store.getState().reducer.isAuthenticated
             ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
             : null

@@ -4,6 +4,7 @@ import './Login.less'
 import { connect } from 'react-redux';
 import { userLoginFetch} from '../actions/actions'; // get the actions
 import store from '../Store';
+import { Link } from "react-router-dom";
 
 class LoginPage extends Component {
   constructor() {
@@ -46,13 +47,15 @@ class LoginPage extends Component {
     
     return (
       <div className = "login-container">
+        <h2>Login</h2>
         <form className = "login" id="login-form" onSubmit={this.handleSubmit}>
 
           <input className = "login-input" id="username" name="username" type="text" placeholder = "Username" required/>
   
           <input className = "login-input" id="password" name="password" type="password" placeholder = "Password" required/>
 
-          <button className = "login-btn" type="submit">LOGIN</button>
+          <button className = "login-btn" type="submit">Login</button>
+          <Link to="/signup">Create an Account</Link>
         </form>
 
       </div>
@@ -69,7 +72,6 @@ class LoginPage extends Component {
   // dispatch() is the method used to dispatch actions and trigger state changes to the store
   const mapDispatchToProps = dispatch => { 
     return {
-
       userLoginFetch: userInfo => dispatch(userLoginFetch(userInfo)),
 
   };
