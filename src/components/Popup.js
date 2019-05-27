@@ -3,10 +3,15 @@ import './Popup.less'
 
 let popups = props =>{
     
-        return(<div className = "popup-container">
+        return(
+                <div className = {"popup-container " + props.color}>
+                        <div style = {{textAlign: "center", opacity: 1}} className = "content">
                         {props.content}
-                        <button onClick = {() => props.onClick()}>x</button>
-        </div>);
+                        </div>
+
+                </div>
+        
+        );
     
 }
 

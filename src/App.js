@@ -54,12 +54,12 @@ class App extends React.Component{
     return (
       
       <div>
-        <nav className="navbar">
+        
         {store.getState().reducer.isAuthenticated
-            ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
+            ? <nav className="navbar"><button className = "logout-btn" onClick={this.handleClick}>Log Out</button></nav> 
             : null
           }
-        </nav> 
+        
         
             {routes}
           

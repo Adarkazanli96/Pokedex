@@ -9,7 +9,8 @@ class SignupForm extends React.Component {
     constructor() {
       super();
       this.state = {
-        showPopup: false
+        showPopup: false,
+        error: false
       }
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -36,33 +37,46 @@ class SignupForm extends React.Component {
         })
 
         if(success){
-          this.props.history.push("/login");
+          this.setState({
+            showPopup : true,
+            error: false
+          })
         }
         else{
-          this.setState({showPopup: true})
+          this.setState({
+            showPopup: true,
+            error: true
+          })
+
           //document.getElementById("signup-form").reset();
         }
       
     }
-
-    handleDismiss  = () => {
-      this.setState({showPopup: false})
-    }
   
     render() {
-      let popup = <Popup
-                    content = {"BOOOOO"}
+      let popup;
+      
+      if(!this.state.error){
+        popup = <Popup
+          content = {"Registration successful"}
+          color = {"green"}
+          />
+      }
+      else{
+        popup = <Popup
+                    content = {"An account with this username already exists"}
                     color = {"red"}
-                    onClick = {this.handleDismiss}
                     />
+      }
+      
+      
+
       return (
         
-        <div>
-          
-        
+        <div className = "signup-bg">
         <div className = "signup-container">
         {this.state.showPopup ? popup : null}
-          <h2>Register</h2>
+          <h2 style = {{color:"white", textAlign: "center"}}>Register</h2>
           <form className = "signup-form" id = "signup-form" onSubmit={this.handleSubmit}>
             <input className = "signup-input" id="username" name="username" type="text" placeholder = "Username" required/>
   
@@ -70,7 +84,8 @@ class SignupForm extends React.Component {
   
             <input className = "signup-input" id="password" name="password" type="password" placeholder = "Password" required/>
             <button className = "signup-btn" type="submit">Register</button>
-            <Link to="/login">Cancel</Link>
+            <span style = {{color:"white"}}>{"Already registered? "}</span>
+            <Link style = {{color:"white"}} to="/login">Log in</Link>
         </form>
         </div>
         </div>

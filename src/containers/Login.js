@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Login.less'
 
+import Popup from '../components/Popup'
 import { connect } from 'react-redux';
 import { userLoginFetch} from '../actions/actions'; // get the actions
 import store from '../Store';
@@ -10,6 +11,7 @@ class LoginPage extends Component {
   constructor() {
     super();
     this.state = {
+      showPopup: false
     };
   }
 
@@ -35,19 +37,25 @@ class LoginPage extends Component {
         }
 
       // wrong username or password
-      else if(!isAuth){
+      else{
         console.log("about to clear the login form")
         document.getElementById("login-form").reset();
+        this.setState({showPopup: true})
 
       }
          
   }
 
   render() {
+    let popup = <Popup
+    content = {"Username or password is incorrect"}
+    color = {"red"}/>
     
     return (
-      <div className = "login-container">
-        <h2>Login</h2>
+      <div className = "login-bg">
+        <div className = "login-container">
+        {this.state.showPopup ? popup : null}
+        <h2 style = {{color:"white", textAlign: "center"}}>Login</h2>
         <form className = "login" id="login-form" onSubmit={this.handleSubmit}>
 
           <input className = "login-input" id="username" name="username" type="text" placeholder = "Username" required/>
@@ -55,10 +63,12 @@ class LoginPage extends Component {
           <input className = "login-input" id="password" name="password" type="password" placeholder = "Password" required/>
 
           <button className = "login-btn" type="submit">Login</button>
-          <Link to="/signup">Create an Account</Link>
+          <Link style = {{color:"white"}} to="/signup">Create an Account</Link>
         </form>
 
       </div>
+      </div>
+      
     );
   }
 }
