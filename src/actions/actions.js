@@ -68,7 +68,7 @@ export const userLoginFetch = user => {
     return AuthAPI.axiosLogin(user)
       //.then(resp => resp.json())
       .then(response => {
-        if (response.data.errorMessage) {
+        if (response.data.errorMessage || response.data.message) {
           // Here you should have logic to handle invalid login credentials.
           // This assumes your Rails API will return a JSON object with a key of
           // 'message' if there is an error
