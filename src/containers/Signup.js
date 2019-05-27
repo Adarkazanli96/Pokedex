@@ -41,15 +41,15 @@ class SignupForm extends React.Component {
             showPopup : true,
             error: false
           })
+          document.getElementById("signup-form").reset();
+
         }
         else{
           this.setState({
             showPopup: true,
             error: true
           })
-
-          //document.getElementById("signup-form").reset();
-        }
+          }
       
     }
   
