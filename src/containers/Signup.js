@@ -1,15 +1,16 @@
 import React from 'react'
 import { AuthAPI } from '../api'
-import {userPostFetch} from '../actions/actions'
-import { connect } from 'react-redux';
 import "./Signup.less"
 import { Link } from "react-router-dom";
-import store from '../Store'
+import Popup from '../components/Popup'
 
 
 class SignupForm extends React.Component {
     constructor() {
       super();
+      this.state = {
+        showPopup: false
+      }
       this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -22,30 +23,45 @@ class SignupForm extends React.Component {
         password : data.get('password'),
         email: data.get('email')
       }
+
+      let success = null;
       
-        await this.props.userPostFetch(user);
+        await AuthAPI.signup(user)
+        .then(response => {
+          success = response.data;
+          console.log("value of success is now " + success)
+        })
+        .catch(error => {
+          console.log("error in signing up")
+        })
 
-        console.log("checking if login was successful " + store.getState().reducer.isAuthenticated)
-
-        let isAuth = store.getState().reducer.isAuthenticated;
-
-        // authentication was sucessful
-        if(isAuth){
-          this.props.history.push("/");
+        if(success){
+          this.props.history.push("/login");
         }
-
-      // wrong username or password
-      else if(!isAuth){
-        console.log("about to clear the login form")
-        document.getElementById("signup-form").reset();
-
-      }
+        else{
+          this.setState({showPopup: true})
+          //document.getElementById("signup-form").reset();
+        }
       
+    }
+
+    handleDismiss  = () => {
+      this.setState({showPopup: false})
     }
   
     render() {
+      let popup = <Popup
+                    content = {"BOOOOO"}
+                    color = {"red"}
+                    onClick = {this.handleDismiss}
+                    />
       return (
+        
+        <div>
+          
+        
         <div className = "signup-container">
+        {this.state.showPopup ? popup : null}
           <h2>Register</h2>
           <form className = "signup-form" id = "signup-form" onSubmit={this.handleSubmit}>
             <input className = "signup-input" id="username" name="username" type="text" placeholder = "Username" required/>
@@ -57,13 +73,10 @@ class SignupForm extends React.Component {
             <Link to="/login">Cancel</Link>
         </form>
         </div>
+        </div>
       );
     }
   }
   
-
-  const mapDispatchToProps = dispatch => ({
-    userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
-  })
   
-  export default connect(null, mapDispatchToProps)(SignupForm);
+  export default SignupForm;

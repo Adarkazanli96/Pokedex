@@ -1,5 +1,4 @@
 import './App.less';
-import { Link } from "react-router-dom";
 import {AuthorizedRoutes, NonAuthorizedRoutes} from "./Routes";
 import React from "react";
 import {getProfileFetch, logoutUser} from './actions/actions'
@@ -20,12 +19,9 @@ class App extends React.Component{
   }
 
  async componentDidMount(){
-  
   await this.props.getProfileFetch();
   this.setState({authorized: store.getState().reducer.isAuthenticated})
 }
-
-//we need to fire the above everytime the global state updates
 
 
   handleClick = async event => {
@@ -51,7 +47,8 @@ class App extends React.Component{
       routes = null;
     }
 
-    console.log(store.getState())
+    // stores object at first, then after the state updates, it becomes a string
+    console.log("in App.js render " + JSON.stringify(store.getState()))
 
     return (
       
