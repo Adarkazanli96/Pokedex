@@ -61,7 +61,9 @@ class Pokedex extends React.Component{
   render (){
 
     return (
-      <div className = "pokedex">
+
+      <div className = "bg">
+        <div className = "pokedex">
         <div className = "header">
           <div className = "bluedot"/>
           <div className = "mini-dots"><div className = "red dot"/><div className = "yellow dot"/><div className = "green dot"/></div>
@@ -85,6 +87,8 @@ class Pokedex extends React.Component{
           </span>
         </div>
       </div>
+      </div>
+
         
     );
   }

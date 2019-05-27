@@ -4,6 +4,7 @@ import React from "react";
 import {getProfileFetch, logoutUser} from './actions/actions'
 import { connect } from 'react-redux';
 import store from './Store'
+import Navbar from './components/Navbar'
 
 import { withRouter } from 'react-router-dom'
 
@@ -52,13 +53,14 @@ class App extends React.Component{
 
     return (
       
-      <div className = "bg">
-        <ul className="navbar">
+      <div>
+        <nav className="navbar">
         {store.getState().reducer.isAuthenticated
             ? <button className = "logout-btn" onClick={this.handleClick}>Log Out</button>
             : null
-          }        
-        </ul> 
+          }
+        </nav> 
+        
             {routes}
           
       </div>
