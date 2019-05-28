@@ -3,7 +3,6 @@ import { AuthAPI } from '../api'
 import "./Signup.less"
 import { Link } from "react-router-dom";
 import Popup from '../components/Popup'
-import axios from 'axios';
 
 
 class SignupForm extends React.Component {
@@ -53,15 +52,8 @@ class SignupForm extends React.Component {
           }
       
     }
-
-    componentDidMount(){
-      axios.get("https://nekftwauae.execute-api.us-east-1.amazonaws.com/test")
-      .then(response => console.log(response));
-    }
   
     render() {
-      axios.get("https://nekftwauae.execute-api.us-east-1.amazonaws.com/test")
-      .then(response => console.log(response));
       let popup;
       
       if(!this.state.error){
