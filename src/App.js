@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import store from './Store'
 import Navbar from './components/Navbar'
 import {ToggleSwitch} from './shared'
+import moon from './assets/images/moon.png'
 
 import { withRouter } from 'react-router-dom'
 
@@ -66,7 +67,7 @@ class App extends React.Component{
       <div>
         
         {store.getState().reducer.isAuthenticated
-            ? <nav className="navbar"><ToggleSwitch title = {'Dark Mode: '} status = {this.state.darkmodeStatus} onClick={this.switchModeHandler}/><button className = "logout-btn" onClick={this.handleClick}>Log Out</button></nav> 
+            ? <nav className="navbar"><span className = "lii"><ToggleSwitch title = {'Dark Mode: '} status = {this.state.darkmodeStatus} onClick={this.switchModeHandler}/></span><span className = "lii"><button className = "logout-btn" onClick={this.handleClick}>Log Out</button></span></nav> 
             : null
           }
         

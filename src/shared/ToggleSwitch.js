@@ -14,8 +14,8 @@ let ToggleSwitch = props => {
     }
 
     return(
-    <div>
-        {props.title + status}
+    <div style = {{position: "relative", right: "90px"}}>
+        <span style = {{color: "white"}}>{props.title + status}</span>
         <label className="switch">
             <input type="checkbox"/>
             <span className="slider round" onClick = {() => props.onClick()}></span>
