@@ -6,4 +6,4 @@
 
 
 
-export default Arrow;
+//export default Arrow;

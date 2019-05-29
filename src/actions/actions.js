@@ -62,6 +62,12 @@ export const setAuthenticated = (status) =>({
   payload: status
 })
 
+export const toggleDarkmode = (bool) => (
+  {
+  type: 'ACTIVATE_DARKMODE',
+  payload: bool
+})
+
 
 export const userLoginFetch = user => {
   return dispatch => {

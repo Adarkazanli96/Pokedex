@@ -4,6 +4,7 @@ import PokemonList from '../components/PokemonList';
 import PokemonViewer from '../components/PokemonViewer';
 import Controls from '../components/Controls'
 import './Pokedex.less';
+import store from '../Store'
 
 class Pokedex extends React.Component{
   constructor(props) {
@@ -59,10 +60,18 @@ class Pokedex extends React.Component{
   }
   
   render (){
+    let mode;
+
+    if(store.getState().reducer.darkmode){
+      mode = "darkmode"
+    }
+    else{
+      mode = "lightmode"
+    }
 
     return (
 
-      <div className = "bg">
+      <div className = {mode}>
         <div className = "pokedex">
         <div className = "header">
           <div className = "bluedot"/>

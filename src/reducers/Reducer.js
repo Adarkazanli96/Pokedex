@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 //import { userReducer } from './UserReducer'
 //import { loginreducer} from './LoginReducer'
 import reducer from './SignupReducer'
+import reducer1 from './LoginReducer'
 
 
 /* Reducers specify how the application's state changes in response to actions
@@ -21,7 +22,8 @@ the state it manages.*/
 const allReducers = combineReducers({
   //userInfo: userReducer,
   //isLoggedIn: loginreducer,
-  reducer
+  reducer,
+  reducer1
 });
 
 export default allReducers;

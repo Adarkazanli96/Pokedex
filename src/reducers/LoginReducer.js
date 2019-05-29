@@ -1,15 +1,13 @@
+const initialState = {
+    darkmode: false
+  }
+
 // probably don't need this reducer
-export const loginreducer = (state = false, action) => {
+export default function reducer(state = initialState, action){
     switch (action.type) {
         
-        case 'SET_LOGIN_PENDING':
-            return action.payload; //return the new state
-
-        case 'SET_LOGIN_SUCCESS':
-            return action.payload // return the new state
-
-        case 'SET_LOGIN_ERROR':
-            return action.payload; //return the new state
+        case 'ACTIVATE_DARKMODE' :
+          return{...state, darkmode: action.payload}
             
         default:
             return state; // return the default state

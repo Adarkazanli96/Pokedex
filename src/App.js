@@ -1,10 +1,11 @@
 import './App.less';
 import {AuthorizedRoutes, NonAuthorizedRoutes} from "./Routes";
 import React from "react";
-import {getProfileFetch, logoutUser} from './actions/actions'
+import {getProfileFetch, logoutUser, toggleDarkmode} from './actions/actions'
 import { connect } from 'react-redux';
 import store from './Store'
 import Navbar from './components/Navbar'
+import {ToggleSwitch} from './shared'
 
 import { withRouter } from 'react-router-dom'
 
@@ -15,6 +16,7 @@ class App extends React.Component{
   
     this.state = {
       authorized: null,
+      darkmodeStatus: false
     };
 
   }
@@ -23,6 +25,13 @@ class App extends React.Component{
   await this.props.getProfileFetch();
   this.setState({authorized: store.getState().reducer.isAuthenticated})
 }
+
+  switchModeHandler = () => {
+    // call toggleDarkMode with !currentglobal state
+    this.props.toggleDarkmode(!store.getState().reducer.darkmode);
+    console.log("status of darkmode is " + store.getState().reducer.darkmode)
+    this.setState({darkmodeStatus: store.getState().reducer.darkmode})
+  }
 
 
   handleClick = async event => {
@@ -37,6 +46,7 @@ class App extends React.Component{
   }
   
   render (){
+
     let routes;
     if(store.getState().reducer.isAuthenticated){
       routes = <AuthorizedRoutes/>
@@ -56,10 +66,9 @@ class App extends React.Component{
       <div>
         
         {store.getState().reducer.isAuthenticated
-            ? <nav className="navbar"><button className = "logout-btn" onClick={this.handleClick}>Log Out</button></nav> 
+            ? <nav className="navbar"><ToggleSwitch title = {'Dark Mode: '} status = {this.state.darkmodeStatus} onClick={this.switchModeHandler}/><button className = "logout-btn" onClick={this.handleClick}>Log Out</button></nav> 
             : null
           }
-        
         
             {routes}
           
@@ -71,7 +80,8 @@ class App extends React.Component{
 
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
-  logoutUser: () => dispatch(logoutUser())
+  logoutUser: () => dispatch(logoutUser()),
+  toggleDarkmode: (bool) => dispatch(toggleDarkmode(bool)) // call action switch background
 })
 
 export default withRouter(connect(null, mapDispatchToProps)(App));
