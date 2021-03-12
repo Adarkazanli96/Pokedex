@@ -54,7 +54,7 @@
     "react-app-polyfill": "^1.0.1",
     "react-bootstrap": "^0.32.4",
     "react-css-transition-replace": "^3.0.3",
-    "react-dev-utils": "^9.0.1",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.8.6",
     "react-fade": "^1.1.1",
     "react-fade-in": "^0.1.6",
